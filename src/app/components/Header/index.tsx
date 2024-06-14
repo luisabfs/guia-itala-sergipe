@@ -4,10 +4,10 @@ import Image from "next/image";
 export default function Header() {
   return (
     <div className="flex flex-col items-center w-full justify-between md:flex-row max-w-3xl lg:max-w-4xl xl:max-w-5xl">
-        <div style={{ position:'relative', width: 250, height: 120}}>
+        <div className="relative w-[260px] h-32">
             <Image fill objectFit="cover" src="/logos/logo-horizontal-white.png" alt="Logo Guia Itala" />
         </div>
-        <nav className="flex w-full justify-center md:w-fit font-sans items-center gap-4 md:flex lg:text-lg">
+        <nav className="flex w-full justify-center md:w-fit items-center gap-4 md:flex lg:text-lg">
             {/* <div className="flex gap-1 items-center">
               <Link href="#portfolio">Portfólio</Link>
               <Image width={18} height={18}  src="/icons/external-light.svg" alt="Ícone do Whatsapp" />

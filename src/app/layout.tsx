@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Playfair_Display, Poppins } from "next/font/google";
 import './globals.css';
 
-const inter = Inter({ subsets: ["latin"] });
-const playfairDisplay = Playfair_Display({ subsets: ["latin"] });
+const poppins = Poppins({ weight: ['100', '400', '600'], subsets: ['latin'], variable: '--font-poppins', display: 'swap' });
+const playfairDisplay = Playfair_Display({ subsets: ["latin"], variable: '--font-playfair-display', display: 'swap'  });
 
 export const metadata: Metadata = {
   title: "Guia Itala Sergipe",
@@ -17,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${playfairDisplay.className} ${inter.className}`}>{children}</body>
+      <body className={`${playfairDisplay.variable} ${poppins.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }
