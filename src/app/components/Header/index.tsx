@@ -4,9 +4,9 @@ import Image from "next/image";
 export default function Header() {
   return (
     <div className="flex flex-col items-center w-full justify-between md:flex-row max-w-3xl lg:max-w-4xl xl:max-w-5xl">
-        <div className="relative w-[260px] h-32">
+        <Link href="/" className="relative w-[260px] h-32">
             <Image fill objectFit="cover" src="/logos/logo-horizontal-white.png" alt="Logo Guia Itala" />
-        </div>
+        </Link>
         <nav className="flex w-full justify-center md:w-fit items-center gap-4 md:flex lg:text-lg">
             {/* <div className="flex gap-1 items-center">
               <Link href="#portfolio">Portfólio</Link>
