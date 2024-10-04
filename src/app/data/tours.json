@@ -1,0 +1,73 @@
+[
+    {
+      "id": "lagoa-dos-tambaquis",
+      "title": "Lagoa dos Tambaquis",
+      "description": "Localizada no litoral sul de Sergipe, a lagoa possui 9 km de extensão e é um lugar onde os visitantes podem interagir com os peixes tambaquis durante o mergulho. Além disso, é possível alimentá-los com rações vendidas nos estabelecimentos locais, proporcionando uma experiência única e divertida para todas as idades.",
+      "imageUrl": "/images/lagoa-tambaquis.jpg",
+      "departure": "08:00h",
+      "returnTime": "16:30h",
+      "included": ["Transporte", "Guia turístico", "Almoço", "Acesso à lagoa"],
+      "notIncluded": ["Rações para alimentar os peixes", "Bebidas"]
+    },
+    {
+      "id": "canyons-do-xingo",
+      "title": "Canyons do Xingó",
+      "description": "Um dos principais pontos turísticos do estado de Sergipe, os Canyons do Xingó oferecem paisagens deslumbrantes com formações rochosas impressionantes e águas cristalinas. Os visitantes podem fazer passeios de barco para explorar os canyons, nadar nas águas do Rio São Francisco e aprender sobre a cultura e a história local.",
+      "imageUrl": "/images/xingo.jpg",
+      "departure": "06:30h",
+      "returnTime": "18:00h",
+      "included": ["Transporte", "Guia turístico", "Passeio de barco"],
+      "notIncluded": ["Almoço", "Bebidas", "Taxa de entrada no atrativo"]
+    },
+    {
+      "id": "city-tour-aracaju",
+      "title": "City-tour em Aracaju",
+      "description": "Descubra a charmosa capital de Sergipe através de um city-tour histórico. Conheça monumentos, praças e museus que contam a rica história da região. Passeie pela Orla de Atalaia, Mercado Municipal e outros pontos emblemáticos da cidade, desfrutando da cultura, culinária e hospitalidade aracajuana.",
+      "imageUrl": "/images/city-tour.webp",
+      "departure": "09:00h",
+      "returnTime": "13:00h",
+      "included": ["Transporte", "Guia turístico"],
+      "notIncluded": ["Almoço", "Entradas em museus", "Bebidas"]
+    },
+    {
+        "id": "park-boa-luz",
+        "title": "Roteiro no Park Boa Luz",
+        "description": "Passe um dia completo de lazer e muito contato com a natureza, há poucos minutos de Aracaju. Todos podem curtir um dia perfeito na Reserva Boa Luz com direito a Piscinas, Lagos, Mata nativa e bosques para caminhada, Trilhas para ciclismo, Quadras de areia para vôlei e beach tênis e desfrutar de uma gastronomia maravilhosa.",
+        "departure": "08:30h",
+        "returnTime": "17:00h",
+        "included": ["Ingresso", "Almoço", "Despesas no park", "Guia regional"],
+        "notIncluded": ["Transporte para o Park Boa Luz (Laranjeiras-SE)"],
+        "imageUrl": "/images/park-boa-luz.jpg"
+    },
+    {
+      "id": "foz-rio-sao-francisco",
+      "title": "Foz do Rio São Francisco",
+      "description": "Um passeio maravilhoso feito em embarcações regionais totalmente seguras pelo rio da Integração Nacional, carinhosamente chamado de Velho Chico, onde o mesmo deságua entre os Estados de Sergipe e Alagoas.",
+      "departure": "07:00h",
+      "returnTime": "16:00h",
+      "included": ["Guia regional", "Embarcação"],
+      "notIncluded": ["Almoço", "Bebidas", "Despesas pessoais na embarcação"],
+      "imageUrl": "/images/foz-rio-sao-francisco.webp"
+    },    
+    {
+      "id": "mangue-seco-ba",
+      "title": "Mangue Seco-BA",
+      "description": "Iremos ao estado da Bahia conhecer o povoado Mangue Seco. Nosso roteiro inclui travessia de barco de 20min pelos rios Piauí e Real. Chegada ao povoado e passeio de Buggy pelas dunas até a praia (não dá para ir a pé). Terra da Tieta do Agreste (novela da Globo).",
+      "departure": "07:30h",
+      "returnTime": "16:00h",
+      "included": ["Almoço", "Passeio de Buggy opcional (para até 4 pessoas)"],
+      "notIncluded": ["Transporte para Mangue Seco"],
+      "imageUrl": "/images/mangue-seco.jpg"
+    },
+    {
+      "id": "e-muito-mais",
+      "title": "E muito mais...",
+      "description": "Além dos destinos incríveis mencionados, Sergipe oferece uma variedade de experiências turísticas, como praias paradisíacas, trilhas ecológicas e museus culturais. Explore o melhor da região e surpreenda-se com o que Sergipe tem a oferecer!",
+      "imageUrl": "/images/museu-gente-sergipana.png",
+      "departure": "10:00h",
+      "returnTime": "17:00h",
+      "included": ["Guia turístico"],
+      "notIncluded": ["Transporte", "Almoço", "Entradas em atrativos"]
+    }
+  ]
+  

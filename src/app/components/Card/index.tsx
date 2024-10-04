@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 type Card = {
-  id: number;
+  id: number | string;
   title: string;
   imageUrl: string;
 }
@@ -12,12 +12,15 @@ type CardProps = {
   card: Card;
   index: number;
   length: number;
+  url?: string;
+  scroll?: boolean;
 };
 
-export default function Card({ card, index, length }: CardProps) {
+export default function Card({ card, index, length, url = '/roteiros', scroll = false }: CardProps) {
   return (
     <Link
-      href="/roteiros"
+      href={url}
+      scroll={scroll}
       key={card.id}
       className={`relative bg-cover bg-center rounded-lg w-full ${index === length - 1 ? 'lg:w-full' : 'lg:max-w-72'} min-h-[250px]`}
       style={{ backgroundImage: `url(${card.imageUrl})` }}

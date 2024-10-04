@@ -1,14 +1,9 @@
 import { Card, Header } from './components';
 import styles from './styles.module.css';
+import { slugify } from './utils';
+import tours from './data/tours.json';
 
 export default async function Home() {
-  const cards = [
-    { id: 1, title: 'Lagoa dos Tambaquis', imageUrl: '/images/lagoa-tambaquis.jpg' },
-    { id: 2, title: 'Canyons do Xingó', imageUrl: '/images/xingo.jpg' },
-    { id: 3, title: 'City-tour histórico em Aracaju', imageUrl: '/images/city-tour.webp' },
-    { id: 4, title: 'E muito mais...', imageUrl: '/images/museu-gente-sergipana.png' },
-  ];
-
   return (
     <main className="font-poppins">
       <section className={styles.backgroundWrapper}>
@@ -23,14 +18,14 @@ export default async function Home() {
         </div>
         <span className="flex text-sm font-medium self-start m-2 text-[#4b7670]">Foto: Giovana Sabbatini</span>
       </section>
-      <section id="itineraries" className="flex flex-col h-full items-center gap-4 p-6 lg:p-6">
+      <section id="tours" className="flex flex-col h-full items-center gap-4 p-6 lg:p-6">
         <div className="flex flex-col w-full justify-center items-center py-6 gap-4 text-center">
           <h1 className="text-5xl font-bold tracking-tighter leading-10">Roteiros para todos os gostos!</h1>
           <p className="mt-2 text-gray-600 max-w-[800px]">Sua viagem começa aqui – navegue por uma seleção de roteiros cuidadosamente planejados para todos os tipos de viajantes, seja para relaxar ou se aventurar, e crie uma experiência única!</p>
         </div>
         <div className="flex flex-wrap justify-center gap-4 w-full h-full lg:max-w-[900px]">
-          {cards.map((card, index) => (
-            <Card card={card} index={index} length={cards.length} />
+          {tours.map((card, index) => (
+            <Card card={card} index={index} length={tours.length} url={`/roteiros?search=${slugify(card.id)}`} scroll />
           ))}
         </div>
         <div />
