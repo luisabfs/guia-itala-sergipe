@@ -2,7 +2,7 @@
     {
       "id": "lagoa-dos-tambaquis",
       "title": "Lagoa dos Tambaquis",
-      "description": "Localizada no litoral sul de Sergipe, a lagoa possui 9 km de extensão e é um lugar onde os visitantes podem interagir com os peixes tambaquis durante o mergulho. Além disso, é possível alimentá-los com rações vendidas nos estabelecimentos locais, proporcionando uma experiência única e divertida para todas as idades.",
+      "description": "Pode ser 2 roteiros/day use. Localizada no litoral sul de Sergipe, a lagoa possui 9 km de extensão e é um lugar onde os visitantes podem interagir com os peixes tambaquis durante o mergulho. Além disso, é possível alimentá-los com rações vendidas nos estabelecimentos locais, proporcionando uma experiência única e divertida para todas as idades.",
       "imageUrl": "/images/lagoa-tambaquis.jpg",
       "departure": "08:00h",
       "returnTime": "16:30h",
@@ -12,31 +12,31 @@
     {
       "id": "canyons-do-xingo",
       "title": "Canyons do Xingó",
-      "description": "Um dos principais pontos turísticos do estado de Sergipe, os Canyons do Xingó oferecem paisagens deslumbrantes com formações rochosas impressionantes e águas cristalinas. Os visitantes podem fazer passeios de barco para explorar os canyons, nadar nas águas do Rio São Francisco e aprender sobre a cultura e a história local.",
+      "description": "Nosso passeio vai até o município sergipano de Canindé do São Francisco, localizado no alto sertão sergipano, para passear de catamarã pelo quinto maior cânion navegável do mundo. É de tirar o fôlego de qualquer pessoa! Os Canyons do Xingó oferecem paisagens deslumbrantes com formações rochosas impressionantes e águas cristalinas. Os visitantes podem explorar os cânions, nadar nas águas do Rio São Francisco e aprender sobre a cultura e a história local. Este passeio tem duração de 10h.",
       "imageUrl": "/images/xingo.jpg",
       "departure": "06:30h",
-      "returnTime": "18:00h",
-      "included": ["Transporte", "Guia turístico", "Passeio de barco"],
-      "notIncluded": ["Almoço", "Bebidas", "Taxa de entrada no atrativo"]
+      "returnTime": "16:00h",
+      "included": ["Guia regional"],
+      "notIncluded": ["Passeio de barco", "Almoço e despesas na embarcação"]
     },
     {
       "id": "city-tour-aracaju",
       "title": "City-tour em Aracaju",
-      "description": "Descubra a charmosa capital de Sergipe através de um city-tour histórico. Conheça monumentos, praças e museus que contam a rica história da região. Passeie pela Orla de Atalaia, Mercado Municipal e outros pontos emblemáticos da cidade, desfrutando da cultura, culinária e hospitalidade aracajuana.",
+      "description": "Pode ser meio período. Vamos conhecer a história da capital do menor estado do Brasil, visitar os mercados de artesanato e conhecer as iguarias típicas da região. Faremos paradas para fotos em pontos turísticos da cidade.",
       "imageUrl": "/images/city-tour.webp",
-      "departure": "09:00h",
-      "returnTime": "13:00h",
+      "departure": "08:00h",
+      "returnTime": "16:00h",
       "included": ["Transporte", "Guia turístico"],
-      "notIncluded": ["Almoço", "Entradas em museus", "Bebidas"]
+      "notIncluded": ["Almoço", "Entradas em museus", "Despesas pessoais", "<strong>Opcional:</strong> almoço em uma das belíssimas praias do litoral sul de Aracaju"]
     },
     {
         "id": "park-boa-luz",
         "title": "Roteiro no Park Boa Luz",
-        "description": "Passe um dia completo de lazer e muito contato com a natureza, há poucos minutos de Aracaju. Todos podem curtir um dia perfeito na Reserva Boa Luz com direito a Piscinas, Lagos, Mata nativa e bosques para caminhada, Trilhas para ciclismo, Quadras de areia para vôlei e beach tênis e desfrutar de uma gastronomia maravilhosa.",
+        "description": "Passe um dia completo de lazer e muito contato com a natureza, em Laranjeiras, há poucos minutos de Aracaju. Todos podem curtir um dia perfeito na Reserva Boa Luz com direito a Piscinas, Lagos, Mata nativa e bosques para caminhada, Trilhas para ciclismo, Quadras de areia para vôlei e beach tênis e desfrutar de uma gastronomia maravilhosa.",
         "departure": "08:30h",
         "returnTime": "17:00h",
-        "included": ["Ingresso", "Almoço", "Despesas no park", "Guia regional"],
-        "notIncluded": ["Transporte para o Park Boa Luz (Laranjeiras-SE)"],
+        "included": ["Guia regional", "Transporte"],
+        "notIncluded": ["Ingresso", "Almoço", "Despesas no park"],
         "imageUrl": "/images/park-boa-luz.jpg"
     },
     {
@@ -64,10 +64,7 @@
       "title": "E muito mais...",
       "description": "Além dos destinos incríveis mencionados, Sergipe oferece uma variedade de experiências turísticas, como praias paradisíacas, trilhas ecológicas e museus culturais. Explore o melhor da região e surpreenda-se com o que Sergipe tem a oferecer!",
       "imageUrl": "/images/museu-gente-sergipana.png",
-      "departure": "10:00h",
-      "returnTime": "17:00h",
-      "included": ["Guia turístico"],
-      "notIncluded": ["Transporte", "Almoço", "Entradas em atrativos"]
+      "hasCta": "true"
     }
   ]
   
