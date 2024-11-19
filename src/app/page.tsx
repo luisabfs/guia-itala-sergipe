@@ -1,7 +1,10 @@
-import { Card, Header } from './components';
+import { 
+  // Card, 
+  Header 
+} from './components';
 import styles from './styles.module.css';
-import { slugify } from './utils';
-import tours from './data/tours.json';
+// import { slugify } from './utils';
+// import tours from './data/tours.json';
 
 export default async function Home() {
   return (
@@ -18,7 +21,7 @@ export default async function Home() {
         </div>
         <span className="flex text-sm font-medium self-start m-2 text-[#4b7670]">Foto: Giovana Sabbatini</span>
       </section>
-      <section id="tours" className="flex flex-col h-full items-center gap-4 p-6 lg:p-6">
+      {/* <section id="tours" className="flex flex-col h-full items-center gap-4 p-6 lg:p-6">
         <div className="flex flex-col w-full justify-center items-center py-6 gap-4 text-center">
           <h1 className="text-5xl font-bold tracking-tighter leading-10">Roteiros para todos os gostos!</h1>
           <p className="mt-2 text-gray-600 max-w-[800px]">Sua viagem começa aqui – navegue por uma seleção de roteiros cuidadosamente planejados para todos os tipos de viajantes, seja para relaxar ou se aventurar, e crie uma experiência única!</p>
@@ -29,7 +32,7 @@ export default async function Home() {
           ))}
         </div>
         <div />
-      </section>
+      </section> */}
     </main>
   );
 }
