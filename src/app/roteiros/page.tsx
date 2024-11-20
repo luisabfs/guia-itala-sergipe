@@ -5,7 +5,7 @@ import { slugify } from '../utils';
 import { useSearchParams, useRouter } from 'next/navigation'
 import TourModalContent from './TourModalContent';
 import fallbackTours from '../data/tours.json';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 type DataItem = {
   id: number;
@@ -18,6 +18,14 @@ type DataItem = {
 };
 
 export default function ToursPage() {
+  return(
+    <Suspense fallback={<LoadingSpinner />}>
+      <ToursContent />
+    </Suspense>
+  );
+}
+
+function ToursContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const search = searchParams.get('search') ?? '';
