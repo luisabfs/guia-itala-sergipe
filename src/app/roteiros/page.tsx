@@ -32,8 +32,8 @@ function ToursContent() {
 
   const [tours, setTours] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Function to fetch data from the API
   async function fetchData() {
     setLoading(true);
     try {
@@ -44,12 +44,11 @@ function ToursContent() {
           'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`
         },
       });
-      // Check if the response is okay (status code 200–299)
+
       if (!response.ok) {
         throw new Error(`An error has occurred: ${response.status}`);
       }
 
-      // Parse the JSON response
       const { data }: { data: Array<DataItem> } = await response.json();
       data ? setTours(data) : setTours(fallbackTours);
       setLoading(false);
@@ -60,11 +59,20 @@ function ToursContent() {
     }
   }
 
+  const selectedCard = tours.find((card) => slugify(card.title) === search);
+  
   useEffect(() => {
     fetchData();
   }, []);
 
-  const selectedCard = tours.find((card) => slugify(card.title) === search);
+  useEffect(() => {
+    setIsModalOpen(!!selectedCard);
+  }, [selectedCard]);
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    router.push('/roteiros', { scroll: false });
+  }
 
   return (
     <main className="flex flex-col items-center min-h-screen bg-[#13271c] font-poppins text-white">
@@ -76,15 +84,15 @@ function ToursContent() {
         {loading ? (
           <LoadingSpinner />   
         ) : (
-          <div className="flex flex-wrap justify-center gap-4 w-full lg:max-w-[900px]">
-            {tours.map((card, index) => (
-              <Card card={card} index={index} length={tours.length} url={`/roteiros?search=${slugify(card.title)}`} />
+          <div className="flex flex-1 flex-wrap justify-center items-center gap-4 w-full lg:max-w-[900px]">
+            {tours.map((card) => (
+              <Card card={card} url={`/roteiros?search=${slugify(card.title)}`} />
             ))}
           </div>
         )}
       </div>
 
-      <Modal isOpen={!!selectedCard} onClose={() => router.push('/roteiros', { scroll: false })} title={selectedCard?.title}>
+      <Modal isOpen={isModalOpen} onClose={handleModalClose} title={selectedCard?.title}>
         <TourModalContent selectedTour={selectedCard!} />
       </Modal>
     </main>
