@@ -37,15 +37,15 @@ type Image = {
 };
 
 export type Tour = {
-  id: number;
-  documentId: string;
+  id: number | string;
+  documentId?: string;
   title: string;
-  image: Image;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  locale: string | null;
-  localizations: Array<any>;
+  image?: Image;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+  locale?: string | null;
+  localizations?: Array<any>;
   description?: string;
   departureTime?: string;
   returnTime?: string;
