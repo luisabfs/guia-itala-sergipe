@@ -1,9 +1,2 @@
-{
-    "rewrites": [
-      {
-        "source": "/admin/(.*)",
-        "destination": " https://guia-itala-sergipe-9dbf9d7f4e07.herokuapp.com/"
-      }
-    ]
-  }
+{}
   
