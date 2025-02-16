@@ -38,7 +38,7 @@ export default function TourModalContent({ selectedTour }: { selectedTour: Tour 
             <span className='font-bold'>Incluso:</span>
             <ul className='text-sm list-disc pl-6'>
               {selectedTour.included?.map(item => (
-                <li className='whitespace-nowrap'>{item}</li>
+                <li key={item} className='whitespace-nowrap'>{item}</li>
               ))}
             </ul>
           </div>
