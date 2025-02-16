@@ -12,14 +12,14 @@ export default async function Home() {
       <section className={styles.backgroundWrapper}>
         <Header />
         <div className="flex flex-col w-full h-full justify-center items-center gap-6">
-          <h1 className="whitespace-pre-line font-playfair font-bold text-3xl -mt-[120px] md:text-6xl">
+          <h1 className="whitespace-pre-line font-playfair font-bold text-3xl mt-12 md:mt-32 md:text-6xl">
             Turismo para todos!
           </h1>
           <span className="m-6 md:m-0 max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-4xl text-sm lg:text-lg">
             Olá! Meu nome é Itala Aben-Athar, e sou Turismóloga, Agente de Viagens e Guia de Turismo em Aracaju, Sergipe, com <span className="font-bold">mais de 30 anos de experiência!</span> Tenho um profundo conhecimento da história, cultura e atrações locais, e estou pronta para proporcionar uma experiência personalizada para a sua viagem.
           </span>
         </div>
-        <span className="flex text-sm font-medium self-start m-2 text-[#4b7670]">Foto: Giovana Sabbatini</span>
+        <span className="flex text-sm font-medium self-start mt-auto text-[#4b7670]">Foto: Giovana Sabbatini</span>
       </section>
       {/* <section id="tours" className="flex flex-col h-full items-center gap-4 p-6 lg:p-6">
         <div className="flex flex-col w-full justify-center items-center py-6 gap-4 text-center">

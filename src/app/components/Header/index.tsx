@@ -13,7 +13,7 @@ export default function Header() {
         <Link href="/" className="relative w-[260px] h-32">
             <Image fill objectFit="cover" src="/logos/logo-horizontal-white.png" alt="Logo Guia Itala" />
         </Link>
-        <nav className="flex flex-col px-4 w-full justify-center md:w-fit items-center gap-4 md:flex-row lg:text-lg">
+        <nav className="flex flex-col-reverse px-4 w-full justify-center md:w-fit items-center gap-4 md:flex-row lg:text-lg">
             {/* <div className="flex gap-1 items-center">
               <Link href="#portfolio">Portfólio</Link>
               <Image width={18} height={18}  src="/icons/external-light.svg" alt="Ícone do Whatsapp" />
