@@ -1,7 +1,7 @@
 .backgroundWrapper {
   background: url('/orla-de-atalaia.png') no-repeat center center;
   background-size: cover;
-  min-height: 100vh; /* Ensures it fills the screen */
+  min-height: 100dvh; /* Ensures it fills the screen */
   display: flex;
   flex-direction: column; /* Stack items vertically */
   align-items: center;
