@@ -1,70 +1,187 @@
 [
-    {
-      "id": "lagoa-dos-tambaquis",
-      "title": "Lagoa dos Tambaquis",
-      "description": "Pode ser 2 roteiros/day use. Localizada no litoral sul de Sergipe, a lagoa possui 9 km de extensão e é um lugar onde os visitantes podem interagir com os peixes tambaquis durante o mergulho. Além disso, é possível alimentá-los com rações vendidas nos estabelecimentos locais, proporcionando uma experiência única e divertida para todas as idades.",
-      "imageUrl": "/images/lagoa-tambaquis.jpg",
-      "departure": "08:00h",
-      "returnTime": "16:30h",
-      "included": ["Transporte", "Guia turístico", "Almoço", "Acesso à lagoa"],
-      "notIncluded": ["Rações para alimentar os peixes", "Bebidas"]
-    },
-    {
-      "id": "canyons-do-xingo",
-      "title": "Canyons do Xingó",
-      "description": "Nosso passeio vai até o município sergipano de Canindé do São Francisco, localizado no alto sertão sergipano, para passear de catamarã pelo quinto maior cânion navegável do mundo. É de tirar o fôlego de qualquer pessoa! Os Canyons do Xingó oferecem paisagens deslumbrantes com formações rochosas impressionantes e águas cristalinas. Os visitantes podem explorar os cânions, nadar nas águas do Rio São Francisco e aprender sobre a cultura e a história local. Este passeio tem duração de 10h.",
-      "imageUrl": "/images/xingo.jpg",
-      "departure": "06:30h",
-      "returnTime": "16:00h",
-      "included": ["Guia regional"],
-      "notIncluded": ["Passeio de barco", "Almoço e despesas na embarcação"]
-    },
-    {
-      "id": "city-tour-aracaju",
-      "title": "City-tour em Aracaju",
-      "description": "Pode ser meio período. Vamos conhecer a história da capital do menor estado do Brasil, visitar os mercados de artesanato e conhecer as iguarias típicas da região. Faremos paradas para fotos em pontos turísticos da cidade.",
-      "imageUrl": "/images/city-tour.webp",
-      "departure": "08:00h",
-      "returnTime": "16:00h",
-      "included": ["Transporte", "Guia turístico"],
-      "notIncluded": ["Almoço", "Entradas em museus", "Despesas pessoais", "<strong>Opcional:</strong> almoço em uma das belíssimas praias do litoral sul de Aracaju"]
-    },
-    {
-        "id": "park-boa-luz",
-        "title": "Roteiro no Park Boa Luz",
-        "description": "Passe um dia completo de lazer e muito contato com a natureza, em Laranjeiras, há poucos minutos de Aracaju. Todos podem curtir um dia perfeito na Reserva Boa Luz com direito a Piscinas, Lagos, Mata nativa e bosques para caminhada, Trilhas para ciclismo, Quadras de areia para vôlei e beach tênis e desfrutar de uma gastronomia maravilhosa.",
-        "departure": "08:30h",
-        "returnTime": "17:00h",
-        "included": ["Guia regional", "Transporte"],
-        "notIncluded": ["Ingresso", "Almoço", "Despesas no park"],
-        "imageUrl": "/images/park-boa-luz.jpg"
-    },
-    {
-      "id": "foz-rio-sao-francisco",
-      "title": "Foz do Rio São Francisco",
-      "description": "Um passeio maravilhoso feito em embarcações regionais totalmente seguras pelo rio da Integração Nacional, carinhosamente chamado de Velho Chico, onde o mesmo deságua entre os Estados de Sergipe e Alagoas.",
-      "departure": "07:00h",
-      "returnTime": "16:00h",
-      "included": ["Guia regional", "Embarcação"],
-      "notIncluded": ["Almoço", "Bebidas", "Despesas pessoais na embarcação"],
-      "imageUrl": "/images/foz-rio-sao-francisco.webp"
-    },    
-    {
-      "id": "mangue-seco-ba",
-      "title": "Mangue Seco-BA",
-      "description": "Iremos ao estado da Bahia conhecer o povoado Mangue Seco. Nosso roteiro inclui travessia de barco de 20min pelos rios Piauí e Real. Chegada ao povoado e passeio de Buggy pelas dunas até a praia (não dá para ir a pé). Terra da Tieta do Agreste (novela da Globo).",
-      "departure": "07:30h",
-      "returnTime": "16:00h",
-      "included": ["Almoço", "Passeio de Buggy opcional (para até 4 pessoas)"],
-      "notIncluded": ["Transporte para Mangue Seco"],
-      "imageUrl": "/images/mangue-seco.jpg"
-    },
-    {
-      "id": "e-muito-mais",
-      "title": "E muito mais...",
-      "description": "Além dos destinos incríveis mencionados, Sergipe oferece uma variedade de experiências turísticas, como praias paradisíacas, trilhas ecológicas e museus culturais. Explore o melhor da região e surpreenda-se com o que Sergipe tem a oferecer!",
-      "imageUrl": "/images/museu-gente-sergipana.png",
-      "hasCta": "true"
-    }
-  ]
-  
+  {
+    "id": "city-tour-aracaju",
+    "title": "City-tour em Aracaju",
+    "description": "Vamos explorar a história e a cultura de Aracaju, a capital do menor estado do Brasil, em um tour histórico e panorâmico. Visite os tradicionais mercados de artesanato, descubra as iguarias típicas da região e registre momentos inesquecíveis com paradas nos principais pontos turísticos da cidade.",
+    "imageUrl": "/images/city-tour.webp",
+    "departureTime": "08:00h",
+    "returnTime": "16:00h",
+    "included": [
+      "Transporte",
+      "Guia turístico"
+    ],
+    "notIncluded": [
+      "Almoço e bebidas",
+      "Entradas em museus",
+      "Despesas pessoais",
+      "<strong>Opcional:</strong> almoço em uma das belíssimas praias do litoral sul de Aracaju!"
+    ]
+  },
+  {
+    "id": "rota-sergipanidade",
+    "title": "Rota da Sergipanidade",
+    "description": "Explore a riqueza cultural de Aracaju em um roteiro museológico pelo centro histórico da cidade. Em uma experiência totalmente imersiva e a pé, visite importantes espaços culturais, como o Palácio Museu Olímpio Campos, o Museu da Gente Sergipana e o Centro Cultural de Aracaju, e descubra a história e identidade sergipana através de suas exposições e acervos.",
+    "imageUrl": "/images/rota-sergipanidade.jpeg",
+    "departureTime": "08:00h",
+    "returnTime": "13:00h",
+    "included": [
+      "Guia regional",
+      "Ingressos nos museus"
+    ],
+    "notIncluded": [
+      "Almoço e bebidas",
+      "Despesas pessoais"
+    ]
+  },
+  {
+    "id": "rota-saberes-e-fazeres",
+    "title": "Rota dos Saberes e Fazeres",
+    "description": "Mergulhe na cultura e na história de Aracaju em um passeio museológico pelo centro histórico da cidade. A pé, explore instituições que preservam a memória e identidade sergipana, como o Memorial do Poder Judiciário, o Museu do Homem Sergipano e o Instituto Histórico e Geográfico de Sergipe. Uma experiência enriquecedora para quem deseja conhecer os saberes e fazeres do povo sergipano.",    
+    "imageUrl": "/images/rota-saberes-e-fazeres.jpg",
+    "departureTime": "08:00h",
+    "returnTime": "13:00h",
+    "included": [
+      "Guia regional",
+      "Ingressos nos museus"
+    ],
+    "notIncluded": [
+      "Almoço e bebidas",
+      "Despesas pessoais"
+    ]
+  },
+  {
+    "id": "lagoa-dos-tambaquis",
+    "title": "Praia do Saco e Lagoa dos Tambaquis",
+    "description": "Vamos conhecer uma praia que chama atenção pela simplicidade e natureza quase que primitiva. No percurso, desfrute da Lagoa dos Tambaquis, um lugar onde os visitantes podem interagir com os peixes tambaquis durante o mergulho. Além disso, é possível alimentá-los com rações vendidas nos estabelecimentos locais, proporcionando uma experiência única e divertida para todas as idades.",
+    "imageUrl": "/images/lagoa-tambaquis.png",
+    "departureTime": "07:30h",
+    "returnTime": "16:00h",
+    "included": [
+      "Transporte",
+      "Guia turístico"
+    ],
+    "notIncluded": [
+      "Ingresso na lagoa",
+      "Rações para alimentar os peixes",
+      "Despesas pessoais"
+    ]
+  },
+  {
+    "id": "canions-rio-sao-francisco",
+    "title": "Cânions do Rio São Francisco (Lago Xingó)",
+    "description": "Embarque em um passeio de catamarã pelo quinto maior cânion navegável do mundo, localizado no município de Canindé do São Francisco, no alto sertão sergipano. Os Cânions do Xingó oferecem paisagens deslumbrantes, com imponentes formações rochosas e águas cristalinas. Além de contemplar esse cenário de tirar o fôlego, os visitantes podem nadar no Rio São Francisco e aprender sobre a cultura e história local. Este passeio tem duração de 10 horas.",
+    "imageUrl": "/images/xingo.jpg",
+    "departureTime": "06:30h",
+    "returnTime": "16:00h",
+    "included": [
+      "Guia regional"
+    ],
+    "notIncluded": [
+      "Embarcação",
+      "Almoço e bebidas",
+      "Despesas pessoais"
+    ]
+  },
+  {
+    "id": "park-boa-luz",
+    "title": "Roteiro no Park Boa Luz",
+    "description": "Passe um dia completo de lazer e muito contato com a natureza, em Laranjeiras, há poucos minutos de Aracaju. Todos podem curtir um dia perfeito na Reserva Boa Luz com direito a Piscinas, Lagos, Mata nativa e bosques para caminhada, Trilhas para ciclismo, Quadras de areia para vôlei e beach tênis e desfrutar de uma gastronomia maravilhosa.",
+    "departureTime": "08:30h",
+    "returnTime": "17:00h",
+    "included": [
+      "Guia regional",
+      "Transporte"
+    ],
+    "notIncluded": [
+      "Ingresso",
+      "Almoço e bebidas",
+      "Despesas no park"
+    ],
+    "imageUrl": "/images/park-boa-luz.jpg"
+  },
+  {
+    "id": "foz-rio-sao-francisco",
+    "title": "Foz do Rio São Francisco",
+    "description": "Embarque em um passeio encantador pelo majestoso Rio São Francisco, conhecido como Velho Chico, a bordo de embarcações regionais seguras e confortáveis. Navegue pelas águas que marcam a divisa entre Sergipe e Alagoas e testemunhe o impressionante encontro do rio com o mar, em um cenário de beleza única e inesquecível.",    
+    "departureTime": "07:00h",
+    "returnTime": "16:00h",
+    "included": [
+      "Guia regional"
+    ],
+    "notIncluded": [
+      "Embarcação",
+      "Almoço e bebidas",
+      "Despesas pessoais"
+    ],
+    "imageUrl": "/images/foz-rio-sao-francisco.gif"
+  },
+  {
+    "id": "mangue-seco-ba",
+    "title": "Mangue Seco - Bahia",
+    "description": "Explore o encantador povoado de Mangue Seco, na Bahia, em uma jornada repleta de paisagens paradisíacas. Nossa aventura começa com uma travessia de barco de 20 minutos pelos rios Piauí e Real, seguida de um emocionante passeio de buggy pelas imponentes dunas até a praia – um trajeto inesquecível que só pode ser feito sobre rodas. Cenário da icônica novela Tieta do Agreste, Mangue Seco oferece um refúgio de beleza natural e tranquilidade à beira-mar.",
+    "departureTime": "07:30h",
+    "returnTime": "16:00h",
+    "included": [
+      "Guia regional"
+    ],
+    "notIncluded": [
+      "Embarcação",
+      "Almoço e bebidas",
+      "Despesas pessoais",
+      "<strong>Opcional:</strong> Passeio de buggy (até 4 pessoas)"
+    ],
+    "imageUrl": "/images/mangue-seco.jpg"
+  },
+  {
+    "id": "croa-do-gore",
+    "title": "Crôa do Goré e Praia do Robalo",
+    "description": "Desfrute de um passeio inesquecível de catamarã pelo rio Vasa Barris, imerso na natureza e embalado por um animado forró a bordo. Faça paradas estratégicas na paradisíaca Crôa do Goré e na encantadora Ilha dos Namorados, onde poderá relaxar e aproveitar o visual deslumbrante. Para completar a experiência, saboreie um delicioso almoço na Praia do Robalo, no litoral sul de Aracaju.",    
+    "imageUrl": "/images/croa-do-gore.jpg",
+    "departureTime": "08:00h",
+    "returnTime": "16:00h",
+    "included": [
+      "Guia regional"
+    ],    
+    "notIncluded": [
+      "Embarcação",
+      "Almoço e bebidas",
+      "Couvert artístico",
+      "Despesas pessoais"
+    ]
+  },
+  {
+    "id": "lencois-sergipano",
+    "title": "Lençóis Sergipanos - Pirambu",
+    "description": "Aventure-se em uma trilha ecológica pelos fascinantes Lençóis Sergipanos, localizados no litoral norte de Sergipe. Em meio a dunas douradas e lagoas cristalinas, os visitantes poderão vivenciar uma experiência sensorial única, contemplando paisagens deslumbrantes e se conectando com a natureza de forma inesquecível.",
+    "imageUrl": "/images/lencois-sergipanos.jpeg",
+    "departureTime": "07:30h",
+    "returnTime": "16:00h",
+    "included": [
+      "Almoço",
+      "Transporte",
+      "Guias local e regional",
+      "Trilhas e banho de cachoeira"
+    ],
+    "notIncluded": [
+      "Bebidas",
+      "Despesas pessoais"
+    ]
+  },
+  {
+    "id": "morro-da-lucrecia",
+    "title": "Morro da Lucrécia e Cachoeira do Roncador",
+    "description": "Explore as maravilhas naturais do litoral norte de Sergipe em um roteiro cheio de aventura e paisagens deslumbrantes. Refresque-se nas águas cristalinas da Cachoeira do Roncador e sinta a adrenalina ao deslizar de esquibunda pelas imponentes dunas do Morro da Lucrécia. Uma experiência imperdível para os amantes da natureza e da diversão ao ar livre.",
+    "imageUrl": "/images/morro-da-lucrecia.jpeg",
+    "departureTime": "07:30h",
+    "returnTime": "16:00h",
+    "included": [
+      "Roteiro ecológico",
+      "Guia local e regional",
+      "Almoço"
+    ],
+    "notIncluded": [      
+      "Bebidas",
+      "Despesas pessoais"
+    ]
+  }
+]
