@@ -78,7 +78,7 @@ function ToursContent() {
 
   const handleModalClose = () => {
     setIsModalOpen(false);
-    router.push('/roteiros', { scroll: false });
+    router.replace('/roteiros', { scroll: false });
   }
 
   return (
@@ -86,12 +86,12 @@ function ToursContent() {
       <Header />
       <div className="flex flex-1 flex-col w-full items-center gap-8 p-6">
         <h1 className="whitespace-pre-line font-playfair font-bold text-3xl md:text-6xl">
-          Roteiros em Sergipe
+          Roteiros em Sergipe e Arredores
         </h1>
         {loading ? (
           <LoadingSpinner />   
         ) : (
-          <div className="flex flex-1 flex-wrap justify-center items-center gap-4 w-full lg:max-w-[900px]">
+          <div className="flex flex-1 flex-wrap justify-center items-center gap-4 w-full lg:max-w-[1000px]">
             {tours.map((card) => (
               <Card card={card} url={`/roteiros?search=${slugify(card.title)}`} />
             ))}
