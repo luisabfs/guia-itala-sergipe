@@ -51,10 +51,17 @@ function ToursContent() {
 
       const { data }: { data: Array<DataItem> } = await response.json();
       data ? setTours(data) : setTours(fallbackTours);
+      
       setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
-      setTours(fallbackTours);
+      setTours([...fallbackTours, {
+        "id": "e-muito-mais",
+        "title": "E muito mais...",
+        "description": "Além dos destinos incríveis mencionados, Sergipe oferece uma variedade de experiências turísticas, como praias paradisíacas, trilhas ecológicas e museus culturais. Explore o melhor da região e surpreenda-se com o que Sergipe tem a oferecer!",
+        "imageUrl": "/images/museu-gente-sergipana.png",
+        "hasCta": true
+      }]);
       setLoading(false);
     }
   }
@@ -92,9 +99,11 @@ function ToursContent() {
         )}
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={handleModalClose} title={selectedCard?.title}>
-        <TourModalContent selectedTour={selectedCard!} />
-      </Modal>
+      {selectedCard ? (
+        <Modal isOpen={isModalOpen} onClose={handleModalClose} title={selectedCard?.title}>
+          <TourModalContent selectedTour={selectedCard} />
+        </Modal>
+      ) : null}
     </main>
   );
 }
