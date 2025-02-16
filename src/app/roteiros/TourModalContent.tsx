@@ -30,13 +30,13 @@ export default function TourModalContent({ selectedTour }: { selectedTour: Tour 
         ) : null}
       </div>
 
-      <div className='flex gap-8 md:gap-10'>
+      <div className='flex flex-col gap-4 md:flex-row md:gap-10'>
         {selectedTour.included && selectedTour.included?.length > 0 ? (
-          <div id="included-items">
+          <div id="included-items min-w-[200px]">
             <span className='font-bold'>Incluso:</span>
             <ul className='text-sm list-disc pl-6'>
               {selectedTour.included?.map(item => (
-                <li>{item}</li>
+                <li className='whitespace-nowrap'>{item}</li>
               ))}
             </ul>
           </div>
