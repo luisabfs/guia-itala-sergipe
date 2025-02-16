@@ -34,42 +34,50 @@ function ToursContent() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  async function fetchData() {
-    setLoading(true);
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tours?populate=*`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`
-        },
-      });
+  // async function fetchData() {
+  //   setLoading(true);
+  //   try {
+  //     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tours?populate=*`, {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`
+  //       },
+  //     });
 
-      if (!response.ok) {
-        throw new Error(`An error has occurred: ${response.status}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`An error has occurred: ${response.status}`);
+  //     }
 
-      const { data }: { data: Array<DataItem> } = await response.json();
-      data ? setTours(data) : setTours(fallbackTours);
+  //     const { data }: { data: Array<DataItem> } = await response.json();
+  //     data ? setTours(data) : setTours(fallbackTours);
       
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setTours([...fallbackTours, {
-        "id": "e-muito-mais",
-        "title": "E muito mais...",
-        "description": "Além dos destinos incríveis mencionados, Sergipe oferece uma variedade de experiências turísticas, como praias paradisíacas, trilhas ecológicas e museus culturais. Explore o melhor da região e surpreenda-se com o que Sergipe tem a oferecer!",
-        "imageUrl": "/images/museu-gente-sergipana.png",
-        "hasCta": true
-      }]);
-      setLoading(false);
-    }
-  }
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //     setTours([...fallbackTours, {
+  //       "id": "e-muito-mais",
+  //       "title": "E muito mais...",
+  //       "description": "Além dos destinos incríveis mencionados, Sergipe oferece uma variedade de experiências turísticas, como praias paradisíacas, trilhas ecológicas e museus culturais. Explore o melhor da região e surpreenda-se com o que Sergipe tem a oferecer!",
+  //       "imageUrl": "/images/museu-gente-sergipana.png",
+  //       "hasCta": true
+  //     }]);
+  //     setLoading(false);
+  //   }
+  // }
 
   const selectedCard = tours.find((card) => slugify(card.title) === search);
   
   useEffect(() => {
-    fetchData();
+    // fetchData();
+    setTours([...fallbackTours, {
+      "id": "e-muito-mais",
+      "title": "E muito mais...",
+      "description": "Além dos destinos incríveis mencionados, Sergipe oferece uma variedade de experiências turísticas, como praias paradisíacas, trilhas ecológicas e museus culturais. Explore o melhor da região e surpreenda-se com o que Sergipe tem a oferecer!",
+      "imageUrl": "/images/museu-gente-sergipana.png",
+      "hasCta": true
+    }]);
+    setLoading(false);
   }, []);
 
   useEffect(() => {

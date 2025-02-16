@@ -5,8 +5,10 @@ import { Tour } from '../types';
 import { formatTime } from '../utils';
 
 export default function TourModalContent({ selectedTour }: { selectedTour: Tour }) {
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-  const backgroundImage = selectedTour.image ? `url(${API_BASE_URL}${selectedTour?.image?.url})` : `url(${selectedTour.imageUrl})`;
+  // const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+  const backgroundImage = 
+    // selectedTour.image ? `url(${API_BASE_URL}${selectedTour?.image?.url})` : 
+    `url(${selectedTour.imageUrl})`;
 
   return (
     <div className='text-black flex flex-col gap-2'>

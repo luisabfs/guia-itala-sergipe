@@ -11,8 +11,10 @@ type CardProps = {
 };
 
 export default function Card({ card, isLastOne, url = '/roteiros', scroll = false }: CardProps) {
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-  const backgroundImage = card.image ? `url(${API_BASE_URL}${card?.image?.url})` : `url(${card.imageUrl})`;
+  // const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+  const backgroundImage = 
+    // card.image ? `url(${API_BASE_URL}${card?.image?.url})` : 
+    `url(${card.imageUrl})`;
 
   return (
     <Link
