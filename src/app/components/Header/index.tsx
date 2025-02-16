@@ -12,11 +12,10 @@ export default function Header() {
             {/* <div className="flex gap-1 items-center">
               <Link href="#portfolio">Portfólio</Link>
               <Image width={18} height={18}  src="/icons/external-light.svg" alt="Ícone do Whatsapp" />
-            </div>
+            </div>*/}
             <div className="flex gap-1 items-center">
-              <Link href="#tours">Roteiros</Link>
-              <Image width={18} height={18}  src="/icons/external-light.svg" alt="Ícone do Whatsapp" />
-            </div> */}
+              <Link href="/roteiros" className="hover:opacity-85" shallow>Roteiros</Link>
+            </div> 
             <WhatsappCta />
         </nav>
     </div>
