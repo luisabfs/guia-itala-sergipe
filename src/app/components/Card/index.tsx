@@ -19,7 +19,7 @@ export default function Card({ card, isLastOne, url = '/roteiros', scroll = fals
       href={url}
       scroll={scroll}
       key={card.id}
-      className={`relative bg-cover bg-center rounded-lg w-full ${isLastOne ? 'lg:w-full' : 'lg:max-w-72'} min-h-[250px]`}
+      className={`relative bg-cover bg-center rounded-lg w-full ${isLastOne ? 'lg:w-full' : 'lg:max-w-80'} min-h-[250px] hover:scale-[1.03] transition-transform duration-300 ease-in-out`}
       style={{ backgroundImage }}
     >
       <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg" />
