@@ -82,9 +82,9 @@ function ToursContent() {
   }
 
   return (
-    <main className="flex flex-col items-center min-h-screen bg-[#13271c] font-poppins text-white">
+    <main className="flex flex-col items-center min-h-screen bg-[#13271c] font-poppins text-white gap-4">
       <Header />
-      <div className="flex flex-1 flex-col w-full items-center gap-12 p-6">
+      <div className="flex flex-1 flex-col w-full items-center gap-8 p-6">
         <h1 className="whitespace-pre-line font-playfair font-bold text-center text-2xl md:text-3xl lg:text-6xl">
           Roteiros em Sergipe e Arredores
         </h1>
