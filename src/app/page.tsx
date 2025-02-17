@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { 
   // Card, 
   Header 
@@ -9,9 +10,9 @@ import styles from './styles.module.css';
 export default async function Home() {
   return (
     <main className="font-poppins">
-      <section className={styles.backgroundWrapper}>
+      <section className={`${styles.backgroundWrapper} gap-6`}>
         <Header />
-        <div className="flex flex-col w-full h-full justify-center items-center gap-6">
+        <div className="flex flex-col w-full h-full justify-center items-center gap-4 md:gap-10">
           <h1 className="whitespace-pre-line font-playfair font-bold text-3xl mt-12 md:mt-32 md:text-6xl">
             Turismo para todos!
           </h1>
@@ -19,6 +20,9 @@ export default async function Home() {
             Olá! Meu nome é Itala Aben-Athar, e sou Turismóloga, Agente de Viagens e Guia de Turismo em Aracaju, Sergipe, com <span className="font-bold">mais de 30 anos de experiência!</span> Tenho um profundo conhecimento da história, cultura e atrações locais, e estou pronta para proporcionar uma experiência personalizada para a sua viagem.
           </span>
         </div>
+        <Link href="/roteiros" className="flex p-2 px-6 text-lg justify-center gap-2 border-2 rounded-full md:text-sm md:py-2 md:px-5 hover:opacity-85">
+          <span className="text-white font-bold text-sm md:text-lg">Ver roteiros</span>
+        </Link>
         <span className="flex text-sm font-medium self-start mt-auto text-[#4b7670]">Foto: Giovana Sabbatini</span>
       </section>
       {/* <section id="tours" className="flex flex-col h-full items-center gap-4 p-6 lg:p-6">
