@@ -18,38 +18,6 @@
     ]
   },
   {
-    "id": "rota-sergipanidade",
-    "title": "Rota da Sergipanidade",
-    "description": "Explore a riqueza cultural de Aracaju em um roteiro museológico pelo centro histórico da cidade. Em uma experiência totalmente imersiva e a pé, visite importantes espaços culturais, como o Palácio Museu Olímpio Campos, o Museu da Gente Sergipana e o Centro Cultural de Aracaju, e descubra a história e identidade sergipana através de suas exposições e acervos.",
-    "imageUrl": "/images/rota-sergipanidade.jpeg",
-    "departureTime": "08:00h",
-    "returnTime": "13:00h",
-    "included": [
-      "Guia regional",
-      "Ingressos nos museus"
-    ],
-    "notIncluded": [
-      "Almoço e bebidas",
-      "Despesas pessoais"
-    ]
-  },
-  {
-    "id": "rota-saberes-e-fazeres",
-    "title": "Rota dos Saberes e Fazeres",
-    "description": "Mergulhe na cultura e na história de Aracaju em um passeio museológico pelo centro histórico da cidade. A pé, explore instituições que preservam a memória e identidade sergipana, como o Memorial do Poder Judiciário, o Museu do Homem Sergipano e o Instituto Histórico e Geográfico de Sergipe. Uma experiência enriquecedora para quem deseja conhecer os saberes e fazeres do povo sergipano.",    
-    "imageUrl": "/images/rota-saberes-e-fazeres.jpg",
-    "departureTime": "08:00h",
-    "returnTime": "13:00h",
-    "included": [
-      "Guia regional",
-      "Ingressos nos museus"
-    ],
-    "notIncluded": [
-      "Almoço e bebidas",
-      "Despesas pessoais"
-    ]
-  },
-  {
     "id": "lagoa-dos-tambaquis",
     "title": "Praia do Saco e Lagoa dos Tambaquis",
     "description": "Vamos conhecer uma praia que chama atenção pela simplicidade e natureza quase que primitiva. No percurso, desfrute da Lagoa dos Tambaquis, um lugar onde os visitantes podem interagir com os peixes tambaquis durante o mergulho. Além disso, é possível alimentá-los com rações vendidas nos estabelecimentos locais, proporcionando uma experiência única e divertida para todas as idades.",
@@ -63,6 +31,23 @@
     "notIncluded": [
       "Ingresso na lagoa",
       "Rações para alimentar os peixes",
+      "Despesas pessoais"
+    ]
+  },
+  {
+    "id": "croa-do-gore",
+    "title": "Crôa do Goré e Praia do Robalo",
+    "description": "Desfrute de um passeio inesquecível de catamarã pelo rio Vasa Barris, imerso na natureza e embalado por um animado forró a bordo. Faça paradas estratégicas na paradisíaca Crôa do Goré e na encantadora Ilha dos Namorados, onde poderá relaxar e aproveitar o visual deslumbrante. Para completar a experiência, saboreie um delicioso almoço na Praia do Robalo, no litoral sul de Aracaju.",    
+    "imageUrl": "/images/croa-do-gore.jpg",
+    "departureTime": "08:00h",
+    "returnTime": "16:00h",
+    "included": [
+      "Guia regional"
+    ],    
+    "notIncluded": [
+      "Embarcação",
+      "Almoço e bebidas",
+      "Couvert artístico",
       "Despesas pessoais"
     ]
   },
@@ -116,36 +101,19 @@
     "imageUrl": "/images/foz-rio-sao-francisco.gif"
   },
   {
-    "id": "mangue-seco-ba",
-    "title": "Mangue Seco - Bahia",
-    "description": "Explore o encantador povoado de Mangue Seco, na Bahia, em uma jornada repleta de paisagens paradisíacas. Nossa aventura começa com uma travessia de barco de 20 minutos pelos rios Piauí e Real, seguida de um emocionante passeio de buggy pelas imponentes dunas até a praia – um trajeto inesquecível que só pode ser feito sobre rodas. Cenário da icônica novela Tieta do Agreste, Mangue Seco oferece um refúgio de beleza natural e tranquilidade à beira-mar.",
+    "id": "morro-da-lucrecia",
+    "title": "Morro da Lucrécia e Cachoeira do Roncador",
+    "description": "Explore as maravilhas naturais do litoral norte de Sergipe em um roteiro cheio de aventura e paisagens deslumbrantes. Refresque-se nas águas cristalinas da Cachoeira do Roncador e sinta a adrenalina ao deslizar de esquibunda pelas imponentes dunas do Morro da Lucrécia. Uma experiência imperdível para os amantes da natureza e da diversão ao ar livre.",
+    "imageUrl": "/images/morro-da-lucrecia.jpeg",
     "departureTime": "07:30h",
     "returnTime": "16:00h",
     "included": [
-      "Guia regional"
+      "Roteiro ecológico",
+      "Guia local e regional",
+      "Almoço"
     ],
-    "notIncluded": [
-      "Embarcação",
-      "Almoço e bebidas",
-      "Despesas pessoais",
-      "<strong>Opcional:</strong> Passeio de buggy (até 4 pessoas)"
-    ],
-    "imageUrl": "/images/mangue-seco.jpg"
-  },
-  {
-    "id": "croa-do-gore",
-    "title": "Crôa do Goré e Praia do Robalo",
-    "description": "Desfrute de um passeio inesquecível de catamarã pelo rio Vasa Barris, imerso na natureza e embalado por um animado forró a bordo. Faça paradas estratégicas na paradisíaca Crôa do Goré e na encantadora Ilha dos Namorados, onde poderá relaxar e aproveitar o visual deslumbrante. Para completar a experiência, saboreie um delicioso almoço na Praia do Robalo, no litoral sul de Aracaju.",    
-    "imageUrl": "/images/croa-do-gore.jpg",
-    "departureTime": "08:00h",
-    "returnTime": "16:00h",
-    "included": [
-      "Guia regional"
-    ],    
-    "notIncluded": [
-      "Embarcação",
-      "Almoço e bebidas",
-      "Couvert artístico",
+    "notIncluded": [      
+      "Bebidas",
       "Despesas pessoais"
     ]
   },
@@ -168,19 +136,51 @@
     ]
   },
   {
-    "id": "morro-da-lucrecia",
-    "title": "Morro da Lucrécia e Cachoeira do Roncador",
-    "description": "Explore as maravilhas naturais do litoral norte de Sergipe em um roteiro cheio de aventura e paisagens deslumbrantes. Refresque-se nas águas cristalinas da Cachoeira do Roncador e sinta a adrenalina ao deslizar de esquibunda pelas imponentes dunas do Morro da Lucrécia. Uma experiência imperdível para os amantes da natureza e da diversão ao ar livre.",
-    "imageUrl": "/images/morro-da-lucrecia.jpeg",
+    "id": "mangue-seco-ba",
+    "title": "Mangue Seco - Bahia",
+    "description": "Explore o encantador povoado de Mangue Seco, na Bahia, em uma jornada repleta de paisagens paradisíacas. Nossa aventura começa com uma travessia de barco de 20 minutos pelos rios Piauí e Real, seguida de um emocionante passeio de buggy pelas imponentes dunas até a praia – um trajeto inesquecível que só pode ser feito sobre rodas. Cenário da icônica novela Tieta do Agreste, Mangue Seco oferece um refúgio de beleza natural e tranquilidade à beira-mar.",
     "departureTime": "07:30h",
     "returnTime": "16:00h",
     "included": [
-      "Roteiro ecológico",
-      "Guia local e regional",
-      "Almoço"
+      "Guia regional"
     ],
-    "notIncluded": [      
-      "Bebidas",
+    "notIncluded": [
+      "Embarcação",
+      "Almoço e bebidas",
+      "Despesas pessoais",
+      "<strong>Opcional:</strong> Passeio de buggy (até 4 pessoas)"
+    ],
+    "imageUrl": "/images/mangue-seco.jpg"
+  },
+  {
+    "id": "rota-sergipanidade",
+    "title": "Rota da Sergipanidade",
+    "description": "Explore a riqueza cultural de Aracaju em um roteiro museológico pelo centro histórico da cidade. Em uma experiência totalmente imersiva e a pé, visite importantes espaços culturais, como o Palácio Museu Olímpio Campos, o Museu da Gente Sergipana e o Centro Cultural de Aracaju, e descubra a história e identidade sergipana através de suas exposições e acervos.",
+    "imageUrl": "/images/rota-sergipanidade.jpeg",
+    "departureTime": "08:00h",
+    "returnTime": "13:00h",
+    "included": [
+      "Guia regional",
+      "Ingressos nos museus"
+    ],
+    "notIncluded": [
+      "Almoço e bebidas",
+      "Despesas pessoais"
+    ]
+  },
+  {
+    "id": "rota-saberes-e-fazeres",
+    "title": "Rota dos Saberes e Fazeres",
+    "description": "Mergulhe na cultura e na história de Aracaju em um passeio museológico pelo centro histórico da cidade. A pé, explore instituições que preservam a memória e identidade sergipana, como o Memorial do Poder Judiciário, o Museu do Homem Sergipano e o Instituto Histórico e Geográfico de Sergipe. Uma experiência enriquecedora para quem deseja conhecer os saberes e fazeres do povo sergipano.",    
+    "imageUrl": "/images/rota-saberes-e-fazeres.jpg",
+    "departureTime": "08:00h",
+    "returnTime": "13:00h",
+    "included": [
+      "Guia regional",
+      "Ingressos nos museus"
+    ],
+    "notIncluded": [
+      "Almoço e bebidas",
       "Despesas pessoais"
     ]
   }
