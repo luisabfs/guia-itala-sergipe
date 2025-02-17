@@ -27,7 +27,7 @@ export default function Modal({ isOpen, title = 'Modal Title', onClose, children
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 cursor-pointer p-4 sm:p-6" onClick={onClose}>
       <div 
-        className="bg-white rounded-lg p-6 w-full max-w-lg max-h-[90dvh] overflow-y-auto m-6 pb-6 cursor-auto"
+        className="bg-white rounded-lg p-6 w-full max-w-lg max-h-[90dvh] overflow-y-auto m-4 pb-6 cursor-auto"
         onClick={(e) => e.stopPropagation()} 
       >
         <div className="flex justify-between items-center mb-4 text-black">

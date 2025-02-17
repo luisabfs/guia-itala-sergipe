@@ -12,7 +12,7 @@ export default function TourModalContent({ selectedTour }: { selectedTour: Tour 
 
   return (
     <div className='text-black flex flex-col gap-2'>
-      <p className='text-justify'>{selectedTour.description ?? ''}</p>
+      <p className='text-[15px] text-justify'>{selectedTour.description ?? ''}</p>
       <div
         className={`relative bg-cover bg-center rounded-lg w-full min-h-[200px]`}
         style={{ backgroundImage }}
