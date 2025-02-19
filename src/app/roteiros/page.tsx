@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, Header, LoadingSpinner, Modal } from '../components';
+import { Card, Header, LoadingSpinner, Modal, WhatsappCta } from '../components';
 import { slugify } from '../utils';
 import { useSearchParams, useRouter } from 'next/navigation'
 import TourModalContent from './TourModalContent';
@@ -88,15 +88,15 @@ function ToursContent() {
         <h1 className="whitespace-pre-line font-playfair font-bold text-center text-2xl md:text-3xl lg:text-6xl">
           Roteiros em Sergipe e Arredores
         </h1>
-          <div className="flex flex-1 flex-wrap justify-center items-center gap-4 w-full lg:max-w-[1000px]">
-            {tours.map((card) => (
-              <Card key={card.id} card={card} url={`/roteiros?search=${slugify(card.title)}`} />
-            ))}
-          </div>
+        <div className="flex flex-1 flex-wrap justify-center items-center gap-4 w-full lg:max-w-[1000px]">
+          {tours.map((card) => (
+            <Card key={card.id} card={card} url={`/roteiros?search=${slugify(card.title)}`} />
+          ))}
+        </div>
       </div>
 
       {selectedCard ? (
-        <Modal isOpen={isModalOpen} onClose={handleModalClose} title={selectedCard?.title}>
+        <Modal isOpen={isModalOpen} onClose={handleModalClose} title={selectedCard?.title} fixedBottomComponent={<WhatsappCta title='Consultar valor' message={`Oi, Itala! Vim pelo seu site e gostaria de saber mais sobre o passeio "${selectedCard.title}". Poderia me passar mais informações?`} />}>
           <TourModalContent selectedTour={selectedCard} />
         </Modal>
       ) : null}

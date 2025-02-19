@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function WhatsappCta() {
+const DEFAULT_MESSAGE = "Oi, Itala! Vim pelo seu site e gostaria de planejar minha viagem para Sergipe com você. Poderia me passar mais informações sobre os passeios e roteiros turísticos?";
+
+export default function WhatsappCta({ title = "Fale comigo", message = DEFAULT_MESSAGE }: { title?: string; message?: string; }) {
   return (
-    <Link target="_blank" className="flex p-2 justify-center w-full gap-2 bg-[#1C4D42] rounded-full shadow-md md:py-2 md:px-5 hover:opacity-85" href="https://wa.me/557996411312?text=Oi%2C%20Itala!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20planejar%20minha%20viagem%20para%20Sergipe%20com%20voc%C3%AA.%20Poderia%20me%20passar%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20passeios%20e%20roteiros%20tur%C3%ADsticos?">
+    <Link target="_blank" className="flex p-2 justify-center w-full gap-2 bg-[#1C4D42] rounded-full shadow-lg md:py-2 md:px-5 hover:opacity-85" href={`https://wa.me/557996411312?text=${encodeURIComponent(message)}`}>
       <Image width={16} height={16} src="/icons/whatsapp-light.svg" alt="Ícone do Whatsapp" />
-      <span className="text-white font-bold text-md md:text-base">Fale comigo</span>
+      <span className="text-white font-bold text-md md:text-base">{title}</span>
     </Link>
   );
 }

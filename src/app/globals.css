@@ -8,3 +8,38 @@ html, body {
     width: 100%;
     height: 100%;
 }
+
+@keyframes controlled-bounce {
+  0%, 100% {
+    transform: translateY(-5px); /* Reduced bounce height */
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.controlled-bounce {
+  animation: controlled-bounce 0.9s infinite;
+}
+
+/* Always visible scrollbar */
+.scrollbar-always-visible {
+  overflow-y: scroll !important;
+  scrollbar-gutter: stable; /* Ensures scrollbar space is always there */
+}
+
+/* Custom scrollbar styles */
+.scrollbar-always-visible::-webkit-scrollbar {
+  width: 8px; /* Adjust width */
+}
+
+.scrollbar-always-visible::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.8); /* Adjust color */
+  border-radius: 4px;
+}
+
+.scrollbar-always-visible::-webkit-scrollbar-track {
+  background: rgba(200, 200, 200, 0.2);
+}
