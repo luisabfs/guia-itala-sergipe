@@ -36,7 +36,7 @@ export default function Modal({ isOpen, title = 'Modal Title', onClose, children
           <button onClick={onClose} className="text-gray-500 text-xl hover:text-gray-800">&times;</button>
         </div>
 
-        <div className="overflow-y-scroll flex- px-6 mb-20 mr-4 max-h-[80dvh] scrollbar-always-visible">
+        <div className={`overflow-y-scroll flex- px-6 mb-20 mr-4 max-h-[80dvh] scrollbar-always-visible ${fixedBottomComponent ? 'mb-20' : 'mb-6'}`}>
           {children}
         </div>
 
