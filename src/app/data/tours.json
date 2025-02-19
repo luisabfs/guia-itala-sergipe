@@ -7,7 +7,6 @@
     "departureTime": "08:00h",
     "returnTime": "16:00h",
     "included": [
-      "Transporte",
       "Guia turístico"
     ],
     "notIncluded": [
@@ -40,7 +39,7 @@
     "description": "Desfrute de um passeio inesquecível de catamarã pelo rio Vasa Barris, imerso na natureza e embalado por um animado forró a bordo. Faça paradas estratégicas na paradisíaca Crôa do Goré e na encantadora Ilha dos Namorados, onde poderá relaxar e aproveitar o visual deslumbrante. Para completar a experiência, saboreie um delicioso almoço na Praia do Robalo, no litoral sul de Aracaju.",    
     "imageUrl": "/images/croa-do-gore.jpg",
     "departureTime": "08:00h",
-    "returnTime": "16:00h",
+    "returnTime": "Conforme a tábua de marés do dia",
     "included": [
       "Guia regional"
     ],    
@@ -74,8 +73,7 @@
     "departureTime": "08:30h",
     "returnTime": "17:00h",
     "included": [
-      "Guia regional",
-      "Transporte"
+      "Guia regional"
     ],
     "notIncluded": [
       "Ingresso",
@@ -126,7 +124,6 @@
     "returnTime": "16:00h",
     "included": [
       "Almoço",
-      "Transporte",
       "Guias local e regional",
       "Trilhas e banho de cachoeira"
     ],

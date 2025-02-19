@@ -20,7 +20,7 @@ export default async function Home() {
             Olá! Meu nome é Itala Aben-Athar, e sou Turismóloga, Agente de Viagens e Guia de Turismo em Aracaju, Sergipe, com <span className="font-bold">mais de 30 anos de experiência!</span> Tenho um profundo conhecimento da história, cultura e atrações locais, e estou pronta para proporcionar uma experiência personalizada para a sua viagem.
           </span>
         </div>
-        <Link href="/roteiros" className="flex mt-2 p-2 px-6 text-lg justify-center gap-2 border-2 rounded-full backdrop-blur-md md:text-sm md:py-2 md:px-5 hover:opacity-85">
+        <Link href="/roteiros" className="flex mt-4 p-2 px-6 text-lg justify-center gap-2 border-2 rounded-full backdrop-blur-md md:text-sm md:py-2 md:px-5 md:mt-12 hover:opacity-85">
           <span className="text-white font-bold text-sm md:text-lg">Ver roteiros</span>
         </Link>
         <span className="flex text-sm font-medium self-start mt-auto text-[#4b7670]">Foto: Giovana Sabbatini</span>

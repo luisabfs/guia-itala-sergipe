@@ -11,5 +11,5 @@ export function slugify(text: string) {
 }
 
 export function formatTime(timeString: string) {
-  return timeString.slice(0, 5);  // This takes the first five characters ("17:00")
+  return timeString.endsWith('h') ? timeString.slice(0, 5) : timeString;  // This takes the first five characters ("17:00")
 };
