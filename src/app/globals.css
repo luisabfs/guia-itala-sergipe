@@ -28,6 +28,7 @@ html, body {
 .scrollbar-always-visible {
   overflow-y: scroll !important;
   scrollbar-gutter: stable; /* Ensures scrollbar space is always there */
+  -webkit-overflow-scrolling: touch; /* Fix for iOS smooth scrolling */
 }
 
 /* Custom scrollbar styles */
@@ -42,4 +43,10 @@ html, body {
 
 .scrollbar-always-visible::-webkit-scrollbar-track {
   background: rgba(200, 200, 200, 0.2);
+}
+
+.scrollbar-always-visible::after {
+  content: "";
+  display: block;
+  height: 1px; /* Forces Safari to always render the scrollbar */
 }
