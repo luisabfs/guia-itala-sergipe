@@ -1,16 +1,26 @@
 import Link from 'next/link';
 import {
-  // Card, 
+  Card,
   Header
 } from './components';
 import styles from './styles.module.css';
-// import { slugify } from './utils';
-// import tours from './data/tours.json';
+import { slugify } from './utils';
+import tours from './data/tours.json';
+import { Tour } from './types';
 
 export default async function Home() {
+  const mainTours = tours.slice(0, 4);
+  const tourCta: Tour = {
+    id: "e-muito-mais",
+    title: "E muito mais...",
+    description: "Além dos destinos incríveis mencionados, Sergipe oferece uma variedade de experiências turísticas, como praias paradisíacas, trilhas ecológicas e museus culturais. Explore o melhor da região e surpreenda-se com o que Sergipe tem a oferecer!",
+    imageUrl: "/images/museu-gente-sergipana.png",
+    hasCta: "true"
+  };
+
   return (
     <main className="font-poppins">
-      <section className={styles.backgroundWrapper}>
+      <section id="introduction" className={styles.backgroundWrapper}>
         <Header />
         <div className="flex flex-col w-full h-full justify-center items-center gap-4 md:gap-10">
           <h1 className="leading-tight whitespace-pre-line font-playfair font-bold drop-shadow-2xl text-3xl mt-10 md:mt-32 md:text-5xl">
@@ -24,18 +34,22 @@ export default async function Home() {
           <span className="text-white font-bold text-sm md:text-lg">Ver roteiros</span>
         </Link>
       </section>
-      {/* <section id="tours" className="flex flex-col h-full items-center gap-4 p-6 lg:p-6">
+      <section id="tours" className="flex flex-col h-full items-center gap-4 p-6 lg:p-6">
         <div className="flex flex-col w-full justify-center items-center py-6 gap-4 text-center">
-          <h1 className="text-5xl font-bold tracking-tighter leading-10">Roteiros para todos os gostos!</h1>
-          <p className="mt-2 text-gray-600 max-w-[800px]">Sua viagem começa aqui – navegue por uma seleção de roteiros cuidadosamente planejados para todos os tipos de viajantes, seja para relaxar ou se aventurar, e crie uma experiência única!</p>
+          <h1 className="text-3xl font-bold tracking-tighter leading-10 md:text-4xl">  Roteiros exclusivos, planejados para você</h1>
+          <p className="mt-2 text-gray-600 max-w-[800px]">Explore Sergipe com roteiros personalizados para cada estilo de viajante. Seja para relaxar, explorar a cultura local ou viver grandes aventuras, sua experiência começa aqui!
+          </p>
         </div>
-        <div className="flex flex-wrap justify-center gap-4 w-full h-full lg:max-w-[900px]">
-          {tours.map((card, index) => (
-            <Card card={card} index={index} length={tours.length} url={`/roteiros?search=${slugify(card.id)}`} scroll />
-          ))}
+        <div className='flex w-full h-full flex-col gap-4 md:flex-row lg:max-w-[1000px]'>
+          <div className="flex flex-wrap justify-center gap-4 w-full h-full">
+            {mainTours.map((card, index) => (
+              <Card card={card} key={index} url={`/roteiros?search=${slugify(card.title)}`} scroll />
+            ))}
+          </div>
+          <Card card={tourCta} url={`/roteiros`} scroll />
         </div>
         <div />
-      </section> */}
+      </section>
     </main>
   );
 }
