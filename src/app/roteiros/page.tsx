@@ -96,7 +96,7 @@ function ToursContent() {
       </div>
 
       {selectedCard ? (
-        <Modal isOpen={isModalOpen} onClose={handleModalClose} title={selectedCard?.title} fixedBottomComponent={!selectedCard.hasCta ? <WhatsappCta title='Consultar valor' message={`Oi, Itala! Vim pelo seu site e gostaria de saber mais sobre o passeio "${selectedCard.title}". Poderia me passar mais informações?`} /> : undefined}>
+        <Modal isOpen={isModalOpen} onClose={handleModalClose} title={selectedCard?.title} fixedBottomComponent={!selectedCard.hasCta ? <WhatsappCta title='Consulte o valor com o comercial' message={`Oi, Itala! Vim pelo seu site e gostaria de saber mais sobre o passeio "${selectedCard.title}". Poderia me passar mais informações?`} /> : undefined}>
           <TourModalContent selectedTour={selectedCard} />
         </Modal>
       ) : null}
