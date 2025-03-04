@@ -16,7 +16,7 @@ export default async function Home() {
           <h1 className="leading-tight whitespace-pre-line font-playfair font-bold drop-shadow-2xl text-3xl mt-10 md:mt-32 md:text-5xl">
             Descubra Sergipe com uma <span className="bg-[#1c4d42] text-white px-2 md:my-2 lg:my-0 rounded-md inline-block">Especialista</span>
           </h1>
-          <span className="drop-shadow-xl m-6 md:m-0 max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-4xl text-base lg:text-xl">
+          <span className="drop-shadow-xl m-6 md:m-0 max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-4xl text-base lg:text-lg">
             Olá! Meu nome é Itala Aben-Athar, e sou Turismóloga, Agente de Viagens e Guia de Turismo em Aracaju, Sergipe, com <span className="font-bold">mais de 30 anos de experiência!</span> Tenho um profundo conhecimento da história, cultura e atrações locais, e estou pronta para proporcionar uma experiência personalizada para a sua viagem.
           </span>
         </div>
