@@ -7,46 +7,152 @@ html, body {
     padding: 0;
     width: 100%;
     height: 100%;
+    scroll-behavior: smooth;
 }
 
-@keyframes controlled-bounce {
-  0%, 100% {
-    transform: translateY(-5px); /* Reduced bounce height */
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-  }
-  50% {
-    transform: translateY(0);
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
+/* Smooth scrolling for anchor links */
+html {
+    scroll-behavior: smooth;
 }
 
-.controlled-bounce {
-  animation: controlled-bounce 0.9s infinite;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1C3D33;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2A5A4A;
 }
 
 /* Always visible scrollbar */
 .scrollbar-always-visible {
-  overflow-y: scroll !important;
-  scrollbar-gutter: stable; /* Ensures scrollbar space is always there */
-  -webkit-overflow-scrolling: touch; /* Fix for iOS smooth scrolling */
+    overflow-y: scroll !important;
+    scrollbar-gutter: stable;
+    -webkit-overflow-scrolling: touch;
 }
 
-/* Custom scrollbar styles */
 .scrollbar-always-visible::-webkit-scrollbar {
-  width: 8px; /* Adjust width */
+    width: 8px;
 }
 
 .scrollbar-always-visible::-webkit-scrollbar-thumb {
-  background: rgba(128, 128, 128, 0.8); /* Adjust color */
-  border-radius: 4px;
+    background: rgba(28, 61, 51, 0.8);
+    border-radius: 4px;
 }
 
 .scrollbar-always-visible::-webkit-scrollbar-track {
-  background: rgba(200, 200, 200, 0.2);
+    background: rgba(200, 200, 200, 0.2);
 }
 
 .scrollbar-always-visible::after {
-  content: "";
-  display: block;
-  height: 1px; /* Forces Safari to always render the scrollbar */
+    content: "";
+    display: block;
+    height: 1px;
+}
+
+/* Animations */
+@keyframes controlled-bounce {
+    0%, 100% {
+        transform: translateY(-5px);
+        animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+        transform: translateY(0);
+        animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+}
+
+.controlled-bounce {
+    animation: controlled-bounce 0.9s infinite;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Utility classes */
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+.animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Focus styles for accessibility */
+*:focus {
+    outline: 2px solid #1C3D33;
+    outline-offset: 2px;
+}
+
+/* Button focus styles */
+button:focus,
+a:focus {
+    outline: 2px solid #1C3D33;
+    outline-offset: 2px;
+}
+
+/* Image optimization */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Container max-width utility */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding: 0 2rem;
+    }
 }
