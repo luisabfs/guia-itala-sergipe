@@ -10,13 +10,13 @@ export default function Hero() {
       <div 
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: 'url(/aracaju-largo-da-gente-sergipana.jpg)',
+          backgroundImage: 'url(/images/mangue-seco.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
           backgroundRepeat: 'no-repeat',
         }}
       >
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent"></div>
       </div>
 
       {/* Content */}
@@ -38,16 +38,14 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-hero-sub font-poppins font-medium mb-8 max-w-3xl mx-auto leading-relaxed"
           >
-            Roteiros personalizados e acompanhamento especializado com{' '}
-            <span className="font-semibold text-gold-light">mais de 30 anos de experiência</span>{' '}
-            em turismo em Sergipe
+            Criando experiências únicas <span className="font-semibold text-gold">há mais de 30 anos</span>, com acolhimento, profissionalismo e encanto pela cultura sergipana e seus arredores.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
           >
             <Link 
               href="#roteiros"
@@ -75,7 +73,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.6 }}
+            transition={{ duration: 1, delay: 0.8 }}
             className="mt-12 flex flex-wrap justify-center gap-6 text-sm text-white/80"
           >
             <div className="flex items-center gap-2">

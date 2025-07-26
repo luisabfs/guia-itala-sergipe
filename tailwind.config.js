@@ -31,7 +31,7 @@ module.exports = {
       },
       fontSize: {
         'hero': ['clamp(2.5rem, 5vw, 4rem)', { lineHeight: '1.1' }],
-        'hero-sub': ['clamp(1.25rem, 3vw, 1.5rem)', { lineHeight: '1.3' }],
+        'hero-sub': ['clamp(1.25rem, 3vw, 1.35rem)', { lineHeight: '1.3' }],
       },
       spacing: {
         '18': '4.5rem',
