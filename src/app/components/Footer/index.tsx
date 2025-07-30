@@ -175,7 +175,9 @@ export default function Footer() {
                 <h5 className="font-semibold text-sm text-gold-light mb-3">Redes Sociais</h5>
                 <div className="flex gap-3">
                   <a 
-                    href="#" 
+                    href="https://www.instagram.com/guia.itala.sergipe/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-8 h-8 bg-accent rounded-full flex items-center justify-center hover:bg-accent-light transition-colors duration-300"
                     aria-label="Instagram"
                   >
