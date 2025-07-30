@@ -49,6 +49,27 @@ export default function Roteiros() {
   // Get selected tour objects
   const selectedTours = roteiros.filter(tour => selectedTourIds.includes(tour.id));
 
+  // Determine the appropriate button text for the warning message
+  const getWarningButtonText = () => {
+    if (visibleTours === 3) {
+      return 'Carregar mais...';
+    }
+    return 'Mostrar todos os passeios';
+  };
+
+  // Check if warning should be shown
+  const shouldShowWarning = hiddenSelectionsCount > 0 && visibleTours < filteredRoteiros.length;
+
+  // Check if there are hidden selections that belong to the current category
+  const hiddenSelectionsInCurrentCategory = hiddenSelections.filter(id => {
+    const tour = roteiros.find(t => t.id === id);
+    return tour && (selectedCategory === 'todos' || tour.category === selectedCategory);
+  });
+  const hiddenSelectionsInCurrentCategoryCount = hiddenSelectionsInCurrentCategory.length;
+
+  // Show warning only if there are hidden selections in the current category/filter
+  const shouldShowWarningForCurrentFilter = hiddenSelectionsInCurrentCategoryCount > 0 && visibleTours < filteredRoteiros.length;
+
   const loadMore = () => {
     if (visibleTours === 3) {
       // First click: load next 3 tours
@@ -128,7 +149,7 @@ export default function Roteiros() {
         </motion.div>
 
         {/* Hidden Selections Indicator */}
-        {hiddenSelectionsCount > 0 && (
+        {shouldShowWarningForCurrentFilter && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -140,11 +161,11 @@ export default function Roteiros() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span>
-                {hiddenSelectionsCount} roteiro{hiddenSelectionsCount > 1 ? 's' : ''} selecionado{hiddenSelectionsCount > 1 ? 's' : ''} {hiddenSelectionsCount > 1 ? 'estão' : 'está'} oculto{hiddenSelectionsCount > 1 ? 's' : ''}
+                {hiddenSelectionsInCurrentCategoryCount} roteiro{hiddenSelectionsInCurrentCategoryCount > 1 ? 's' : ''} selecionado{hiddenSelectionsInCurrentCategoryCount > 1 ? 's' : ''} {hiddenSelectionsInCurrentCategoryCount > 1 ? 'estão' : 'está'} oculto{hiddenSelectionsInCurrentCategoryCount > 1 ? 's' : ''}
               </span>
             </div>
             <p className="text-sm text-gray-600 mt-1">
-              Clique em "Mostrar todos os passeios" para ver suas seleções
+              Clique em "{getWarningButtonText()}" para ver suas seleções
             </p>
           </motion.div>
         )}
