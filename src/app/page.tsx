@@ -17,8 +17,8 @@ export default function Home() {
         <Hero />
         <SobreGuia />
         <Roteiros />
-        <Depoimentos />
-        <Galeria />
+        {/* <Depoimentos /> */}
+        {/* <Galeria /> */}
         <FAQ />
         <Footer />
         <WhatsAppButton />

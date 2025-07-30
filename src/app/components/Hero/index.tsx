@@ -124,16 +124,19 @@ export default function Hero() {
                   </svg>
                 </Link>
 
-                <Link
-                  href="#contato"
+                <button
+                  onClick={() => {
+                    const message = encodeURIComponent('Olá! Gostaria de agendar um passeio personalizado em Sergipe. Poderia me ajudar?');
+                    window.open(`https://wa.me/557996411312?text=${message}`, '_blank');
+                  }}
                   className="group border-2 border-primary hover:bg-primary hover:text-white text-primary font-semibold py-2.5 sm:py-3 lg:py-3 xl:py-3 px-4 sm:px-6 lg:px-6 xl:px-8 rounded-full transition-all duration-300 flex items-center justify-center gap-2 sm:gap-2 lg:gap-2 text-sm sm:text-sm lg:text-sm xl:text-base"
-                  aria-label="Agendar passeio personalizado"
+                  aria-label="Agendar passeio personalizado via WhatsApp"
                 >
                   <span>Agendar passeio</span>
                   <svg className="w-3 h-3 sm:w-3 sm:h-3 lg:w-3 lg:h-3 xl:w-4 xl:h-4 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                   </svg>
-                </Link>
+                </button>
               </motion.div>
 
               {/* Authority Badge - Integrated with CTAs */}
@@ -161,7 +164,13 @@ export default function Hero() {
                 </motion.div>
                 
                 {/* Trust indicators */}
-                <div className="hidden sm:flex items-center gap-2 text-xs lg:text-xs xl:text-sm text-gray-600">
+                <a 
+                  href="https://share.google/7wcud2PiuorduFpte"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden sm:flex items-center gap-2 text-xs lg:text-xs xl:text-sm text-gray-600 hover:text-primary transition-colors duration-300"
+                  aria-label="Ver perfil no Google Maps"
+                >
                   <div className="flex items-center gap-1">
                     <svg className="w-3 h-3 lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -170,7 +179,7 @@ export default function Hero() {
                   </div>
                   <span>•</span>
                   <span>+500 clientes satisfeitos</span>
-                </div>
+                </a>
               </motion.div>
             </motion.div>
 
