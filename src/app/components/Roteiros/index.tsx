@@ -33,6 +33,7 @@ export default function Roteiros() {
   const [showTooltip, setShowTooltip] = useState(true);
   const [isSectionVisible, setIsSectionVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [expandedDescriptions, setExpandedDescriptions] = useState<Set<string>>(new Set());
   const sectionRef = useRef<HTMLElement>(null);
   const { selectedTourIds, toggleTour, setIsWhatsAppOpen } = useTourContext();
 
@@ -110,6 +111,20 @@ export default function Roteiros() {
 
   // Show warning only if there are hidden selections in the current category/filter
   const shouldShowWarningForCurrentFilter = hiddenSelectionsInCurrentCategoryCount > 0 && visibleTours < filteredRoteiros.length;
+
+  // Toggle description expansion
+  const toggleDescription = (tourId: string, event: React.MouseEvent) => {
+    event.stopPropagation(); // Prevent tour selection when clicking expand button
+    setExpandedDescriptions(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(tourId)) {
+        newSet.delete(tourId);
+      } else {
+        newSet.add(tourId);
+      }
+      return newSet;
+    });
+  };
 
   // Auto-control WhatsApp popup based on selections
   const handleTourToggle = (tour: Tour) => {
@@ -305,9 +320,21 @@ export default function Roteiros() {
                   {roteiro.title}
                 </h3>
 
-                <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
-                  {roteiro.description}
-                </p>
+                <div className="mb-4">
+                  <p className={`text-gray-600 text-sm leading-relaxed ${
+                    expandedDescriptions.has(roteiro.id) ? '' : 'line-clamp-3'
+                  }`}>
+                    {roteiro.description}
+                  </p>
+                  {roteiro.description.length > 150 && (
+                    <button
+                      onClick={(e) => toggleDescription(roteiro.id, e)}
+                      className="text-primary text-xs font-medium hover:text-primary/80 transition-colors mt-2"
+                    >
+                      {expandedDescriptions.has(roteiro.id) ? 'Ver menos' : 'Ver mais'}
+                    </button>
+                  )}
+                </div>
 
                 {/* Duration */}
                 <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
