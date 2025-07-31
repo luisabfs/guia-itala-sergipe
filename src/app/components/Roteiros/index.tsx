@@ -1,84 +1,28 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import toursData from '../../data/tours.json';
+import { useTourContext } from '../../contexts/TourContext';
+import Preview from '../ShareableTourStory/Preview';
 
-interface Roteiro {
+interface Tour {
   id: string;
   title: string;
   description: string;
-  image: string;
-  duration: string;
+  imageUrl: string;
+  departureTime: string;
+  returnTime: string;
+  included: string[];
+  notIncluded: string[];
   category: 'praias' | 'cultural' | 'ecologico';
-  includesTransport: boolean;
-  price?: string;
 }
 
-const roteiros: Roteiro[] = [
-  {
-    id: 'croa-do-gore',
-    title: 'Croa do Goré',
-    description: 'Ilha paradisíaca com praias de areia branca e águas cristalinas. Experiência única de contato com a natureza preservada.',
-    image: '/images/croa-do-gore.jpg',
-    duration: '1 dia',
-    category: 'praias',
-    includesTransport: true,
-    price: 'A partir de R$ 150'
-  },
-  {
-    id: 'mangue-seco',
-    title: 'Mangue Seco',
-    description: 'Vila de pescadores com dunas impressionantes e praias selvagens. Conheça a cultura local e saboreie a gastronomia regional.',
-    image: '/images/mangue-seco.jpg',
-    duration: '1 dia',
-    category: 'praias',
-    includesTransport: true,
-    price: 'A partir de R$ 180'
-  },
-  {
-    id: 'foz-rio-sao-francisco',
-    title: 'Foz do Rio São Francisco',
-    description: 'Ponto de encontro entre o rio e o mar. Visite o farol histórico e aprecie a paisagem única da região.',
-    image: '/images/foz-rio-sao-francisco.gif',
-    duration: '1 dia',
-    category: 'cultural',
-    includesTransport: true,
-    price: 'A partir de R$ 120'
-  },
-  {
-    id: 'lencois-sergipanos',
-    title: 'Lençóis Sergipanos',
-    description: 'Dunas de areia branca que se estendem por quilômetros. Experiência de aventura e contemplação da natureza.',
-    image: '/images/lencois-sergipanos.jpeg',
-    duration: '1 dia',
-    category: 'ecologico',
-    includesTransport: true,
-    price: 'A partir de R$ 140'
-  },
-  {
-    id: 'city-tour-aracaju',
-    title: 'City Tour Aracaju',
-    description: 'Conheça os principais pontos turísticos da capital: Museu da Gente Sergipana, Orla de Atalaia, Centro Histórico e muito mais.',
-    image: '/images/city-tour.webp',
-    duration: '1/2 dia',
-    category: 'cultural',
-    includesTransport: true,
-    price: 'A partir de R$ 80'
-  },
-  {
-    id: 'lagoa-tambaquis',
-    title: 'Lagoa dos Tambaquis',
-    description: 'Lagoa de água doce cercada por vegetação nativa. Ideal para observação de aves e momentos de tranquilidade.',
-    image: '/images/lagoa-tambaquis.jpg',
-    duration: '1 dia',
-    category: 'ecologico',
-    includesTransport: true,
-    price: 'A partir de R$ 100'
-  }
-];
+// Use tours data directly with categories
+const roteiros: Tour[] = toursData as Tour[];
 
 const categories = [
-  { id: 'todos', label: 'Todos', icon: '🌍' },
+  { id: 'todos', label: 'Todos', icon: '🌟' },
   { id: 'praias', label: 'Praias', icon: '🏖️' },
   { id: 'cultural', label: 'Cultural/Histórico', icon: '🏛️' },
   { id: 'ecologico', label: 'Ecológico', icon: '🌿' }
@@ -86,228 +30,438 @@ const categories = [
 
 export default function Roteiros() {
   const [selectedCategory, setSelectedCategory] = useState('todos');
-  const [selectedRoteiros, setSelectedRoteiros] = useState<string[]>([]);
+  const [visibleTours, setVisibleTours] = useState(3);
+  const [showTooltip, setShowTooltip] = useState(true);
+  const [isSectionVisible, setIsSectionVisible] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [expandedDescriptions, setExpandedDescriptions] = useState<Set<string>>(new Set());
+  const [showStoryPreview, setShowStoryPreview] = useState<string | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement> }>({});
+  const { selectedTourIds, toggleTour, setIsWhatsAppOpen } = useTourContext();
 
+  // Get or create ref for a tour
+  const getCardRef = (tourId: string) => {
+    if (!cardRefs.current[tourId]) {
+      cardRefs.current[tourId] = { current: null };
+    }
+    return cardRefs.current[tourId];
+  };
+
+  // Auto-hide tooltip after 5 seconds when section becomes visible
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    
+    if (isSectionVisible && selectedTourIds.length === 0) {
+      timer = setTimeout(() => {
+        setShowTooltip(false);
+      }, 5000);
+    }
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [isSectionVisible, selectedTourIds.length]);
+
+  // Detect when tours section is in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsSectionVisible(entry.isIntersecting);
+      },
+      { threshold: 0.3 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  // Filter tours based on selected category
   const filteredRoteiros = selectedCategory === 'todos' 
     ? roteiros 
     : roteiros.filter(roteiro => roteiro.category === selectedCategory);
 
-  const toggleRoteiro = (id: string) => {
-    setSelectedRoteiros(prev => 
-      prev.includes(id) 
-        ? prev.filter(r => r !== id)
-        : [...prev, id]
-    );
+  // Show only the first N tours
+  const displayedRoteiros = filteredRoteiros.slice(0, visibleTours);
+
+  // Calculate hidden selections
+  const hiddenSelections = selectedTourIds.filter(id => 
+    !displayedRoteiros.some(tour => tour.id === id)
+  );
+  const hiddenSelectionsCount = hiddenSelections.length;
+
+  // Get selected tour objects
+  const selectedTours = roteiros.filter(tour => selectedTourIds.includes(tour.id));
+
+  // Determine the appropriate button text for the warning message
+  const getWarningButtonText = () => {
+    if (visibleTours === 3) {
+      return 'Carregar mais...';
+    }
+    return 'Mostrar todos os passeios';
   };
 
-  const sendToWhatsApp = () => {
-    if (selectedRoteiros.length === 0) {
-      alert('Selecione pelo menos um roteiro para enviar.');
-      return;
+  // Check if warning should be shown
+  const shouldShowWarning = hiddenSelectionsCount > 0 && visibleTours < filteredRoteiros.length;
+
+  // Check if there are hidden selections that belong to the current category
+  const hiddenSelectionsInCurrentCategory = hiddenSelections.filter(id => {
+    const tour = roteiros.find(t => t.id === id);
+    return tour && (selectedCategory === 'todos' || tour.category === selectedCategory);
+  });
+  const hiddenSelectionsInCurrentCategoryCount = hiddenSelectionsInCurrentCategory.length;
+
+  // Show warning only if there are hidden selections in the current category/filter
+  const shouldShowWarningForCurrentFilter = hiddenSelectionsInCurrentCategoryCount > 0 && visibleTours < filteredRoteiros.length;
+
+  // Toggle description expansion
+  const toggleDescription = (tourId: string, event: React.MouseEvent) => {
+    event.stopPropagation(); // Prevent tour selection when clicking expand button
+    setExpandedDescriptions(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(tourId)) {
+        newSet.delete(tourId);
+      } else {
+        newSet.add(tourId);
+      }
+      return newSet;
+    });
+  };
+
+  // Auto-control WhatsApp popup based on selections
+  const handleTourToggle = (tour: Tour) => {
+    const wasSelected = selectedTourIds.includes(tour.id);
+    toggleTour(tour);
+    
+    // Auto-open popup on first selection
+    if (!wasSelected && selectedTourIds.length === 0) {
+      setIsWhatsAppOpen(true);
     }
+    // Auto-close popup on subsequent selections to guide user
+    else if (!wasSelected && selectedTourIds.length > 0) {
+      setIsWhatsAppOpen(false);
+    }
+  };
 
-    const itineraryList = selectedRoteiros.map(id => {
-      const itinerary = roteiros.find(item => item.id === id);
-      return `• ${itinerary?.title} (${itinerary?.duration})`;
-    }).join('\n');
+  const loadMore = () => {
+    if (visibleTours === 3) {
+      // First click: load next 3 tours
+      setVisibleTours(prev => prev + 3);
+    } else {
+      // Second click: show all remaining tours
+      setVisibleTours(filteredRoteiros.length);
+    }
+  };
 
-    const message = `Olá! Gostaria de saber mais sobre os seguintes roteiros:\n\n${itineraryList}\n\nPoderia me passar mais informações?`;
-    const whatsappUrl = `https://wa.me/557996411312?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+  const hideTours = () => {
+    setVisibleTours(3);
+    // Scroll to maintain context after hiding tours - scroll to last visible tour
+    setTimeout(() => {
+      const lastTour = document.querySelector('[data-tour-index="2"]');
+      if (lastTour) {
+        const isMobile = window.innerWidth < 768;
+        lastTour.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: isMobile ? 'start' : 'center',
+          inline: 'nearest'
+        });
+      }
+    }, 150);
+  };
+
+  const resetVisibleTours = () => {
+    setVisibleTours(3);
+  };
+
+  // Reset visible tours when category changes
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    resetVisibleTours();
   };
 
   return (
-    <section id="roteiros" className="py-20 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="roteiros" className="py-16 lg:py-24 bg-white" ref={sectionRef}>
+      <div className="container mx-auto px-4">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="text-center mb-12 lg:mb-16"
         >
-          <h2 className="font-playfair font-bold text-4xl sm:text-5xl text-primary mb-6">
-            Roteiros{' '}
-            <span className="text-accent">Exclusivos</span>
+          <h2 className="font-playfair font-bold text-3xl sm:text-4xl lg:text-5xl text-primary mb-4">
+            Roteiros Personalizados
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Explore Sergipe com roteiros personalizados para cada estilo de viajante. 
-            Seja para relaxar, explorar a cultura local ou viver grandes aventuras, 
-            sua experiência começa aqui!
+          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+            Descubra Sergipe com roteiros exclusivos e acompanhamento especializado. 
+            Escolha seus destinos favoritos e envie para consultar disponibilidade.
           </p>
         </motion.div>
 
-        {/* Filters */}
+
+
+        {/* Category Filters */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex flex-wrap justify-center gap-3 mb-8 lg:mb-12"
         >
           {categories.map((category) => (
             <button
               key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+              onClick={() => handleCategoryChange(category.id)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                 selectedCategory === category.id
                   ? 'bg-primary text-white shadow-lg'
-                  : 'bg-secondary text-primary hover:bg-primary/10'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              <span>{category.icon}</span>
-              <span>{category.label}</span>
+              <span className="mr-2">{category.icon}</span>
+              {category.label}
             </button>
           ))}
         </motion.div>
 
-        {/* Roteiros Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {filteredRoteiros.map((roteiro, index) => (
+        {/* Hidden Selections Indicator */}
+        {shouldShowWarningForCurrentFilter && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-6 p-4 bg-primary/10 border border-primary/20 rounded-xl text-center"
+          >
+            <div className="flex items-center justify-center gap-2 text-primary font-medium">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>
+                {hiddenSelectionsInCurrentCategoryCount} roteiro{hiddenSelectionsInCurrentCategoryCount > 1 ? 's' : ''} selecionado{hiddenSelectionsInCurrentCategoryCount > 1 ? 's' : ''} {hiddenSelectionsInCurrentCategoryCount > 1 ? 'estão' : 'está'} oculto{hiddenSelectionsInCurrentCategoryCount > 1 ? 's' : ''}
+              </span>
+            </div>
+            <p className="text-sm text-gray-600 mt-1">
+              Clique em "{getWarningButtonText()}" para ver suas seleções
+            </p>
+          </motion.div>
+        )}
+
+        {/* Tours Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12 relative">
+          {/* Tooltip for first tour card */}
+          {(showTooltip || isHovering) && selectedTourIds.length === 0 && displayedRoteiros.length > 0 && isSectionVisible && (
+            <AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: -10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="absolute -top-12 left-0 z-50"
+              >
+                <div className="bg-primary text-white text-xs font-medium px-3 py-2 rounded-lg shadow-lg">
+                  <span>Clique para selecionar</span>
+                  <div className="absolute top-full left-6 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-primary"></div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          )}
+          
+                                {displayedRoteiros.map((roteiro, index) => (
             <motion.div
               key={roteiro.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="group"
-            >
-              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={roteiro.image}
-                    alt={roteiro.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  
-                  {/* Category badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-white/90 backdrop-blur-sm text-primary text-xs font-semibold px-3 py-1 rounded-full">
-                      {roteiro.category === 'praias' && '🏖️ Praias'}
-                      {roteiro.category === 'cultural' && '🏛️ Cultural'}
-                      {roteiro.category === 'ecologico' && '🌿 Ecológico'}
-                    </span>
-                  </div>
+              ref={getCardRef(roteiro.id)}
+                  data-tour-index={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  onClick={() => handleTourToggle(roteiro)}
+                  onMouseEnter={() => index === 0 && setIsHovering(true)}
+                  onMouseLeave={() => index === 0 && setIsHovering(false)}
+                  className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer relative ${
+                    selectedTourIds.includes(roteiro.id)
+                      ? 'bg-primary/10 shadow-2xl shadow-primary/30 transform scale-[1.03] ring-1 ring-primary/30'
+                      : 'hover:shadow-xl'
+                  }`}
+                >
+              {/* Selection Indicator Bar */}
+              {selectedTourIds.includes(roteiro.id) && (
+                <div className="absolute top-0 left-0 right-0 h-1 bg-primary z-10"></div>
+              )}
 
-                  {/* Selection checkbox */}
-                  <button
-                    onClick={() => toggleRoteiro(roteiro.id)}
-                    className={`absolute top-4 right-4 w-6 h-6 rounded-full border-2 transition-all duration-300 ${
-                      selectedRoteiros.includes(roteiro.id)
-                        ? 'bg-primary border-primary'
-                        : 'bg-white/90 border-white'
-                    }`}
-                    aria-label={`Selecionar ${roteiro.title}`}
-                  >
-                    {selectedRoteiros.includes(roteiro.id) && (
-                      <svg className="w-4 h-4 text-white mx-auto" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                    )}
-                  </button>
+              {/* Image */}
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={roteiro.imageUrl}
+                  alt={roteiro.title}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+
+                {/* Category Badge */}
+                <div className="absolute top-4 left-4">
+                  <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-primary text-xs font-medium rounded-full">
+                    {categories.find(c => c.id === roteiro.category)?.icon} {categories.find(c => c.id === roteiro.category)?.label}
+                  </span>
                 </div>
 
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="font-playfair font-bold text-xl text-primary mb-3">
-                    {roteiro.title}
-                  </h3>
-                  
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                    {roteiro.description}
-                  </p>
-
-                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                    <div className="flex items-center gap-2">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <span>{roteiro.duration}</span>
-                    </div>
-                    
-                    <div className="flex items-center gap-2">
-                      {roteiro.includesTransport ? (
-                        <>
-                          <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          <span className="text-green-600">Transporte incluso</span>
-                        </>
-                      ) : (
-                        <span>Transporte não incluso</span>
-                      )}
-                    </div>
-                  </div>
-
-                  {roteiro.price && (
-                    <div className="text-primary font-semibold text-lg mb-4">
-                      {roteiro.price}
-                    </div>
+                {/* Selection Indicator */}
+                <div className={`absolute top-4 right-4 w-6 h-6 rounded-full border-2 transition-all duration-300 flex items-center justify-center ${
+                  selectedTourIds.includes(roteiro.id)
+                    ? 'bg-primary border-primary'
+                    : 'bg-white/90 border-white'
+                }`}>
+                  {selectedTourIds.includes(roteiro.id) && (
+                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
                   )}
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
 
-        {/* Selection Actions */}
-        {selectedRoteiros.length > 0 && (
+              {/* Content */}
+              <div className="p-6">
+                <h3 className="font-playfair font-bold text-xl text-primary mb-3">
+                  {roteiro.title}
+                </h3>
+
+                <div className="mb-4">
+                  <p className={`text-gray-600 text-sm leading-relaxed ${
+                    expandedDescriptions.has(roteiro.id) ? '' : 'line-clamp-3'
+                  }`}>
+                    {roteiro.description}
+                  </p>
+                  {roteiro.description.length > 150 && (
+                    <button
+                      onClick={(e) => toggleDescription(roteiro.id, e)}
+                      className="text-primary text-xs font-medium hover:text-primary/80 transition-colors mt-2"
+                    >
+                      {expandedDescriptions.has(roteiro.id) ? 'Ver menos' : 'Ver mais'}
+                    </button>
+                  )}
+                </div>
+
+                {/* Duration */}
+                <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Saída: {roteiro.departureTime} | Retorno: {roteiro.returnTime}</span>
+                </div>
+
+                {/* Included Services */}
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-sm text-primary">Incluído:</h4>
+                  <ul className="text-xs text-gray-600 space-y-1">
+                    {roteiro.included.slice(0, 3).map((item, idx) => (
+                      <li key={idx} className="flex items-center gap-2">
+                        <svg className="w-3 h-3 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        {item}
+                      </li>
+                    ))}
+                    {roteiro.included.length > 3 && (
+                      <li className="text-xs text-gray-500">
+                        +{roteiro.included.length - 3} itens incluídos
+                      </li>
+                    )}
+                  </ul>
+                </div>
+                                </div>
+
+                  {/* Story Button */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowStoryPreview(roteiro.id);
+                    }}
+                    className="absolute bottom-4 right-4 w-8 h-8 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110"
+                    aria-label="Baixar story do Instagram"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                  </button>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Story Preview Modal */}
+            {showStoryPreview && (
+              <Preview
+                tour={roteiros.find(t => t.id === showStoryPreview)!}
+                onClose={() => setShowStoryPreview(null)}
+              />
+            )}
+
+        {/* Load More Button */}
+        {visibleTours < filteredRoteiros.length && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center"
+            className="text-center mb-12"
           >
-            <div className="bg-secondary rounded-2xl p-6 max-w-2xl mx-auto">
-              <h3 className="font-semibold text-primary text-lg mb-4">
-                Roteiros selecionados ({selectedRoteiros.length})
-              </h3>
-              
-              <div className="flex flex-wrap gap-2 mb-6 justify-center">
-                {selectedRoteiros.map(id => {
-                  const roteiro = roteiros.find(r => r.id === id);
-                  return (
-                    <span key={id} className="bg-primary text-white px-3 py-1 rounded-full text-sm">
-                      {roteiro?.title}
-                    </span>
-                  );
-                })}
-              </div>
-
-              <button
-                onClick={sendToWhatsApp}
-                className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2 mx-auto"
-                aria-label="Enviar roteiros selecionados para WhatsApp"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-                </svg>
-                <span>Enviar para WhatsApp</span>
-              </button>
-            </div>
+            <button
+              onClick={loadMore}
+              data-load-more
+              className="bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2 mx-auto"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+              {visibleTours === 3 ? 'Carregar mais...' : 'Mostrar todos os passeios'}
+            </button>
           </motion.div>
         )}
 
-        {/* Policy Notice */}
+        {/* Hide Button */}
+        {visibleTours === filteredRoteiros.length && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <button
+              onClick={hideTours}
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2 mx-auto"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+              </svg>
+              Ocultar passeios
+            </button>
+          </motion.div>
+        )}
+
+        {/* Cancellation Policy */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
+          id="politica-cancelamento"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
           className="mt-16 text-center"
         >
-          <div className="bg-primary/5 rounded-2xl p-6 max-w-4xl mx-auto">
-            <h3 className="font-semibold text-primary text-lg mb-3">
+          <div className="bg-secondary/50 rounded-2xl p-8 max-w-4xl mx-auto">
+            <h3 className="font-playfair font-bold text-2xl text-primary mb-4 flex items-center justify-center gap-3">
+              <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
               Política de Cancelamento
             </h3>
-            <p className="text-gray-600 text-sm leading-relaxed">
-              Cancelamentos com até 24h de antecedência são gratuitos. 
-              Roteiros personalizados podem ser adaptados conforme suas necessidades. 
-              Entre em contato para mais informações sobre condições especiais.
+            <p className="text-gray-700 leading-relaxed">
+              Cancelamentos podem ser feitos até 24 horas antes do início do passeio. 
+              Em caso de cancelamento em período inferior, será cobrada uma taxa de 50% do valor total. 
+              Para cancelamentos no dia do passeio, será cobrado 100% do valor.
             </p>
           </div>
         </motion.div>
