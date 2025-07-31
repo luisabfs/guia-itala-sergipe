@@ -32,13 +32,6 @@ export default function Footer() {
                     </svg>
                     <span>Credenciada CADASTUR</span>
                   </div>
-                  <div className="bg-white rounded-md p-2 shadow-sm w-full">
-                    <img 
-                      src="/images/cadastur.png" 
-                      alt="Logo CADASTUR - Cadastro de Prestadores de Serviços Turísticos" 
-                      className="w-full h-8 object-cover opacity-90 hover:opacity-100 transition-opacity duration-300"
-                    />
-                  </div>
                 </div>
               </div>
             </div>
@@ -166,14 +159,14 @@ export default function Footer() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </div>
-                  <span className="text-gray-300">Aracaju, SE</span>
+                  <span className="text-gray-300">Sergipe, Brasil</span>
                 </div>
               </div>
 
               {/* Social Media */}
               <div className="pt-4 border-t border-gray-600">
                 <h5 className="font-semibold text-sm text-gold-light mb-3">Redes Sociais</h5>
-                <div className="flex gap-3 justify-start">
+                <div className="flex gap-3 justify-center md:justify-start">
                   <a 
                     href="https://www.instagram.com/guia.itala.sergipe/"
                     target="_blank"

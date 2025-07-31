@@ -129,7 +129,7 @@ export default function Hero() {
                     const message = encodeURIComponent('Olá! Gostaria de agendar um passeio personalizado em Sergipe. Poderia me ajudar?');
                     window.open(`https://wa.me/557996411312?text=${message}`, '_blank');
                   }}
-                  className="group border-2 border-primary hover:bg-primary hover:text-white text-primary font-semibold py-2.5 sm:py-3 lg:py-3 xl:py-3 px-4 sm:px-6 lg:px-6 xl:px-8 rounded-full transition-all duration-300 flex items-center justify-center gap-2 sm:gap-2 lg:gap-2 text-sm sm:text-sm lg:text-sm xl:text-base"
+                  className="group border-2 border-primary text-primary font-semibold py-2.5 sm:py-3 lg:py-3 xl:py-3 px-4 sm:px-6 lg:px-6 xl:px-8 rounded-full transition-all duration-300 flex items-center justify-center gap-2 sm:gap-2 lg:gap-2 text-sm sm:text-sm lg:text-sm xl:text-base"
                   aria-label="Agendar passeio personalizado via WhatsApp"
                 >
                   <span>Agendar passeio</span>
@@ -139,47 +139,23 @@ export default function Hero() {
                 </button>
               </motion.div>
 
-              {/* Authority Badge - Integrated with CTAs */}
+              {/* Trust indicators and Authority Badge */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
-                className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-3 lg:gap-4 xl:gap-4"
+                                className="flex justify-center lg:justify-start items-center text-xs lg:text-xs xl:text-sm text-primary font-medium"
               >
-                <motion.div 
-                  className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm text-primary px-3 py-1.5 lg:px-4 lg:py-2 xl:px-4 xl:py-2 rounded-full text-xs lg:text-xs xl:text-sm border border-primary/20 shadow-sm"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <motion.svg 
-                    className="w-3 h-3 lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-gold" 
-                    fill="currentColor" 
-                    viewBox="0 0 20 20"
-                    animate={{ rotate: [0, 10, -10, 0] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </motion.svg>
-                  <span className="font-medium">Guia credenciada CADASTUR</span>
-                </motion.div>
-                
-                {/* Trust indicators */}
-                <a 
-                  href="https://share.google/7wcud2PiuorduFpte"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hidden sm:flex items-center gap-2 text-xs lg:text-xs xl:text-sm text-gray-600 hover:text-primary transition-colors duration-300"
-                  aria-label="Ver perfil no Google Maps"
-                >
-                  <div className="flex items-center gap-1">
-                    <svg className="w-3 h-3 lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <span className="font-medium">5.0</span>
-                  </div>
-                  <span>•</span>
-                  <span>+500 clientes satisfeitos</span>
-                </a>
+                <div className="flex items-center gap-1">
+                <svg className="w-3 h-3 lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-gold" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                <span className="hidden sm:inline">Guia credenciada CADASTUR</span>
+                <span className="sm:hidden">CADASTUR</span>
+                </div>
+                <span className="mx-2">•</span>
+                <span className="hidden sm:inline">+500 clientes satisfeitos</span>
+                <span className="sm:hidden">+500 clientes</span>
               </motion.div>
             </motion.div>
 
