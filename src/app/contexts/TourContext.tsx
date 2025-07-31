@@ -20,6 +20,8 @@ interface TourContextType {
   toggleTour: (tour: Tour) => void;
   removeTour: (tourId: string) => void;
   clearTours: () => void;
+  isWhatsAppOpen: boolean;
+  setIsWhatsAppOpen: (open: boolean) => void;
 }
 
 const TourContext = createContext<TourContextType | undefined>(undefined);
@@ -27,6 +29,7 @@ const TourContext = createContext<TourContextType | undefined>(undefined);
 export function TourProvider({ children }: { children: ReactNode }) {
   const [selectedTourIds, setSelectedTourIds] = useState<string[]>([]);
   const [selectedTours, setSelectedTours] = useState<Tour[]>([]);
+  const [isWhatsAppOpen, setIsWhatsAppOpen] = useState(false);
 
   const toggleTour = (tour: Tour) => {
     setSelectedTourIds(prev => {
@@ -65,7 +68,9 @@ export function TourProvider({ children }: { children: ReactNode }) {
       selectedTourIds,
       toggleTour,
       removeTour,
-      clearTours
+      clearTours,
+      isWhatsAppOpen,
+      setIsWhatsAppOpen
     }}>
       {children}
     </TourContext.Provider>

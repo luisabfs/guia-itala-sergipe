@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import toursData from '../../data/tours.json';
 import { useTourContext } from '../../contexts/TourContext';
 
@@ -30,7 +30,48 @@ const categories = [
 export default function Roteiros() {
   const [selectedCategory, setSelectedCategory] = useState('todos');
   const [visibleTours, setVisibleTours] = useState(3);
-  const { selectedTourIds, toggleTour } = useTourContext();
+  const [showTooltip, setShowTooltip] = useState(true);
+  const [isSectionVisible, setIsSectionVisible] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const { selectedTourIds, toggleTour, setIsWhatsAppOpen } = useTourContext();
+
+  // Auto-hide tooltip after 5 seconds when section becomes visible
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    
+    if (isSectionVisible && selectedTourIds.length === 0) {
+      timer = setTimeout(() => {
+        setShowTooltip(false);
+      }, 5000);
+    }
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [isSectionVisible, selectedTourIds.length]);
+
+  // Detect when tours section is in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsSectionVisible(entry.isIntersecting);
+      },
+      { threshold: 0.3 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   // Filter tours based on selected category
   const filteredRoteiros = selectedCategory === 'todos' 
@@ -70,6 +111,21 @@ export default function Roteiros() {
   // Show warning only if there are hidden selections in the current category/filter
   const shouldShowWarningForCurrentFilter = hiddenSelectionsInCurrentCategoryCount > 0 && visibleTours < filteredRoteiros.length;
 
+  // Auto-control WhatsApp popup based on selections
+  const handleTourToggle = (tour: Tour) => {
+    const wasSelected = selectedTourIds.includes(tour.id);
+    toggleTour(tour);
+    
+    // Auto-open popup on first selection
+    if (!wasSelected && selectedTourIds.length === 0) {
+      setIsWhatsAppOpen(true);
+    }
+    // Auto-close popup on subsequent selections to guide user
+    else if (!wasSelected && selectedTourIds.length > 0) {
+      setIsWhatsAppOpen(false);
+    }
+  };
+
   const loadMore = () => {
     if (visibleTours === 3) {
       // First click: load next 3 tours
@@ -107,7 +163,7 @@ export default function Roteiros() {
   };
 
   return (
-    <section id="roteiros" className="py-16 lg:py-24 bg-white">
+    <section id="roteiros" className="py-16 lg:py-24 bg-white" ref={sectionRef}>
       <div className="container mx-auto px-4">
         {/* Header */}
         <motion.div
@@ -125,11 +181,13 @@ export default function Roteiros() {
           </p>
         </motion.div>
 
+
+
         {/* Category Filters */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           className="flex flex-wrap justify-center gap-3 mb-8 lg:mb-12"
         >
           {categories.map((category) => (
@@ -171,21 +229,41 @@ export default function Roteiros() {
         )}
 
         {/* Tours Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
-          {displayedRoteiros.map((roteiro, index) => (
-            <motion.div
-              key={roteiro.id}
-              data-tour-index={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              onClick={() => toggleTour(roteiro)}
-              className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer relative ${
-                selectedTourIds.includes(roteiro.id)
-                  ? 'bg-primary/10 shadow-2xl shadow-primary/30 transform scale-[1.03] ring-1 ring-primary/30'
-                  : 'hover:shadow-xl'
-              }`}
-            >
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12 relative">
+          {/* Tooltip for first tour card */}
+          {(showTooltip || isHovering) && selectedTourIds.length === 0 && displayedRoteiros.length > 0 && isSectionVisible && (
+            <AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: -10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="absolute -top-12 left-0 z-50"
+              >
+                <div className="bg-primary text-white text-xs font-medium px-3 py-2 rounded-lg shadow-lg">
+                  <span>Clique para selecionar</span>
+                  <div className="absolute top-full left-6 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-primary"></div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          )}
+          
+                      {displayedRoteiros.map((roteiro, index) => (
+              <motion.div
+                key={roteiro.id}
+                data-tour-index={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                onClick={() => handleTourToggle(roteiro)}
+                onMouseEnter={() => index === 0 && setIsHovering(true)}
+                onMouseLeave={() => index === 0 && setIsHovering(false)}
+                className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer relative ${
+                  selectedTourIds.includes(roteiro.id)
+                    ? 'bg-primary/10 shadow-2xl shadow-primary/30 transform scale-[1.03] ring-1 ring-primary/30'
+                    : 'hover:shadow-xl'
+                }`}
+              >
               {/* Selection Indicator Bar */}
               {selectedTourIds.includes(roteiro.id) && (
                 <div className="absolute top-0 left-0 right-0 h-1 bg-primary z-10"></div>

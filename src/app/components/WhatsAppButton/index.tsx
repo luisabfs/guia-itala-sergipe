@@ -5,8 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTourContext } from '../../contexts/TourContext';
 
 export default function WhatsAppButton() {
-  const [isOpen, setIsOpen] = useState(false);
-  const { selectedTours, removeTour } = useTourContext();
+  const { selectedTours, removeTour, isWhatsAppOpen, setIsWhatsAppOpen } = useTourContext();
 
   const handleSendWhatsApp = () => {
     if (!selectedTours || selectedTours.length === 0) return;
@@ -17,7 +16,7 @@ export default function WhatsAppButton() {
     window.open(`https://wa.me/557996411312?text=${encodedMessage}`, '_blank');
     
     // Close popup after sending
-    setIsOpen(false);
+    setIsWhatsAppOpen(false);
   };
 
   const tourCount = selectedTours?.length || 0;
@@ -26,7 +25,7 @@ export default function WhatsAppButton() {
     <>
       {/* Floating WhatsApp Button */}
       <motion.button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsWhatsAppOpen(!isWhatsAppOpen)}
         className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
@@ -51,7 +50,7 @@ export default function WhatsAppButton() {
 
       {/* Tour Cart Popup */}
       <AnimatePresence>
-        {isOpen && (
+        {isWhatsAppOpen && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -71,7 +70,7 @@ export default function WhatsAppButton() {
                   )}
                 </div>
                 <button
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => setIsWhatsAppOpen(false)}
                   className="text-white/80 hover:text-white transition-colors"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
