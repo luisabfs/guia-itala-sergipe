@@ -49,7 +49,7 @@ export async function getTours(): Promise<NotionTour[]> {
 
       return {
         id: page.id,
-        title: properties.Title?.title?.[0]?.plain_text || '',
+        title: properties.Título?.title?.[0]?.plain_text || '',
         description: properties.Descrição?.rich_text?.[0]?.plain_text || '',
         imageUrl: page.cover?.external?.url || page.cover?.file?.url || '',
         departureTime: properties.Saída?.rich_text?.[0]?.plain_text || '',

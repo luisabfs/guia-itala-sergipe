@@ -99,7 +99,7 @@ export default function WhatsAppButton() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: 20 }}
-                      className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg"
+                      className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
                     >
                       <img
                         src={tour.imageUrl}
@@ -110,9 +110,9 @@ export default function WhatsAppButton() {
                         <h4 className="font-medium text-sm text-gray-900 truncate">
                           {tour.title}
                         </h4>
-                        <p className="text-xs text-gray-500">
+                        {/* <p className="text-xs text-gray-500">
                           {tour.departureTime} - {tour.returnTime}
-                        </p>
+                        </p> */}
                       </div>
                       <button
                         onClick={() => removeTour(tour.id)}

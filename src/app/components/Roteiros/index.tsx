@@ -1,24 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import toursData from '../../data/tours.json';
+import Image from 'next/image';
 import { useTourContext } from '../../contexts/TourContext';
+import type { NotionTour } from '@/lib/notion';
+import toursData from '../../data/tours.json';
 
-interface Tour {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  departureTime: string;
-  returnTime: string;
-  included: string[];
-  notIncluded: string[];
-  category: 'praias' | 'cultural' | 'ecologico';
+interface Tour extends NotionTour {
+  // Extends the NotionTour interface
 }
 
-// Use tours data directly with categories
-const roteiros: Tour[] = toursData as Tour[];
+// Fallback data from JSON
+const fallbackTours: Tour[] = toursData as Tour[];
 
 const categories = [
   { id: 'todos', label: 'Todos', icon: '🌟' },
@@ -30,12 +24,44 @@ const categories = [
 export default function Roteiros() {
   const [selectedCategory, setSelectedCategory] = useState('todos');
   const [visibleTours, setVisibleTours] = useState(3);
+  const [roteiros, setRoteiros] = useState<Tour[]>(fallbackTours); // Start with fallback
+  const [loading, setLoading] = useState(true);
   const { selectedTourIds, toggleTour } = useTourContext();
+
+  // Fetch tours from Notion API with fallback
+  useEffect(() => {
+    const fetchTours = async () => {
+      try {
+        setLoading(true);
+        
+        const response = await fetch('/api/tours');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Use Notion data if available, otherwise keep fallback
+        if (data.tours && data.tours.length > 0) {
+          setRoteiros(data.tours);
+        } else {
+          console.log('No tours from Notion, keeping fallback data');
+        }
+      } catch (err) {
+        console.warn('Failed to fetch from Notion API, keeping fallback data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTours();
+  }, []);
 
   // Filter tours based on selected category
   const filteredRoteiros = selectedCategory === 'todos' 
     ? roteiros 
-    : roteiros.filter(roteiro => roteiro.category === selectedCategory);
+    : roteiros.filter((roteiro: Tour) => roteiro.category === selectedCategory);
 
   // Show only the first N tours
   const displayedRoteiros = filteredRoteiros.slice(0, visibleTours);
@@ -47,7 +73,81 @@ export default function Roteiros() {
   const hiddenSelectionsCount = hiddenSelections.length;
 
   // Get selected tour objects
-  const selectedTours = roteiros.filter(tour => selectedTourIds.includes(tour.id));
+  const selectedTours = roteiros.filter((tour: Tour) => selectedTourIds.includes(tour.id));
+
+  // Loading state with skeleton
+  if (loading) {
+    return (
+      <section id="roteiros" className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4">
+          {/* Header Skeleton */}
+          <div className="text-center mb-12 lg:mb-16">
+            <div className="h-12 bg-gray-200 rounded-lg relative overflow-hidden mb-4 max-w-md mx-auto">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+            </div>
+            <div className="h-6 bg-gray-200 rounded relative overflow-hidden max-w-2xl mx-auto">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+            </div>
+          </div>
+
+          {/* Category Filters Skeleton */}
+          <div className="flex flex-wrap justify-center gap-3 mb-8 lg:mb-12">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-10 w-24 bg-gray-200 rounded-full relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+              </div>
+            ))}
+          </div>
+
+          {/* Tours Grid Skeleton */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="bg-white rounded-2xl shadow-lg overflow-hidden">
+                {/* Image Skeleton */}
+                <div className="h-48 bg-gray-200 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+                </div>
+                
+                {/* Content Skeleton */}
+                <div className="p-6">
+                  <div className="h-6 bg-gray-200 rounded relative overflow-hidden mb-3">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+                  </div>
+                  <div className="space-y-2 mb-4">
+                    <div className="h-4 bg-gray-200 rounded relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+                    </div>
+                    <div className="h-4 bg-gray-200 rounded relative overflow-hidden w-3/4">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+                    </div>
+                    <div className="h-4 bg-gray-200 rounded relative overflow-hidden w-1/2">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+                    </div>
+                  </div>
+                  <div className="h-4 bg-gray-200 rounded relative overflow-hidden mb-4">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="h-4 bg-gray-200 rounded relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+                    </div>
+                    <div className="h-4 bg-gray-200 rounded relative overflow-hidden w-2/3">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+                    </div>
+                    <div className="h-4 bg-gray-200 rounded relative overflow-hidden w-1/3">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+
 
   const loadMore = () => {
     if (visibleTours === 3) {
@@ -151,7 +251,7 @@ export default function Roteiros() {
 
         {/* Tours Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
-          {displayedRoteiros.map((roteiro, index) => (
+          {displayedRoteiros.map((roteiro: Tour, index: number) => (
             <motion.div
               key={roteiro.id}
               data-tour-index={index}
@@ -172,12 +272,61 @@ export default function Roteiros() {
 
               {/* Image */}
               <div className="relative h-48 overflow-hidden">
-                <img
-                  src={roteiro.imageUrl}
-                  alt={roteiro.title}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                {/* Fallback/Skeleton - Always visible initially */}
+                <div 
+                  data-skeleton-id={roteiro.id}
+                  className="w-full h-full bg-gray-200 relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+                  <div className="w-full h-full flex items-center justify-center">
+                    <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Image - Positioned absolutely over skeleton */}
+                {roteiro.imageUrl && (
+                  <div className="absolute inset-0">
+                    <Image
+                      src={roteiro.imageUrl}
+                      alt={roteiro.title}
+                      fill
+                      className="object-cover hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      priority={index < 3}
+                      onLoad={() => {
+                        // Hide skeleton when image loads
+                        const skeleton = document.querySelector(`[data-skeleton-id="${roteiro.id}"]`) as HTMLElement;
+                        if (skeleton) {
+                          skeleton.style.opacity = '0';
+                          skeleton.style.transition = 'opacity 0.3s ease-out';
+                          setTimeout(() => {
+                            skeleton.style.display = 'none';
+                          }, 300);
+                        }
+                        
+                        // Show gradient overlay when image loads
+                        const overlay = document.querySelector(`[data-overlay-id="${roteiro.id}"]`) as HTMLElement;
+                        if (overlay) {
+                          overlay.style.opacity = '1';
+                          overlay.style.transition = 'opacity 0.3s ease-out';
+                        }
+                      }}
+                      onError={() => {
+                        // Keep skeleton visible on error
+                        console.warn(`Failed to load image for tour: ${roteiro.title}`);
+                      }}
+                    />
+                  </div>
+                )}
+                
+                {/* Gradient overlay - hidden initially, shown when image loads */}
+                <div 
+                  data-overlay-id={roteiro.id}
+                  className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"
+                  style={{ opacity: roteiro.imageUrl ? '0' : '0' }}
+                ></div>
 
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4">
@@ -211,18 +360,18 @@ export default function Roteiros() {
                 </p>
 
                 {/* Duration */}
-                <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                {roteiro.departureTime && roteiro.returnTime && <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>Saída: {roteiro.departureTime} | Retorno: {roteiro.returnTime}</span>
-                </div>
+                </div>}
 
                 {/* Included Services */}
                 <div className="space-y-2">
                   <h4 className="font-semibold text-sm text-primary">Incluído:</h4>
                   <ul className="text-xs text-gray-600 space-y-1">
-                    {roteiro.included.slice(0, 3).map((item, idx) => (
+                    {roteiro.included.slice(0, 3).map((item: string, idx: number) => (
                       <li key={idx} className="flex items-center gap-2">
                         <svg className="w-3 h-3 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -263,8 +412,8 @@ export default function Roteiros() {
           </motion.div>
         )}
 
-        {/* Hide Button */}
-        {visibleTours === filteredRoteiros.length && (
+        {/* Hide Button - Only show when there are more than 3 tours and all are visible */}
+        {visibleTours === filteredRoteiros.length && filteredRoteiros.length > 3 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
