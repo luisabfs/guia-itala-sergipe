@@ -1,12 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTourContext } from '../../contexts/TourContext';
 
 export default function WhatsAppButton() {
   const [isOpen, setIsOpen] = useState(false);
+  const [userClosed, setUserClosed] = useState(false);
   const { selectedTours, removeTour } = useTourContext();
+
+  // Auto-open popup when first tour is selected (but only if user hasn't manually closed it)
+  useEffect(() => {
+    if (selectedTours && selectedTours.length > 0 && !isOpen && !userClosed) {
+      setIsOpen(true);
+    }
+  }, [selectedTours, isOpen, userClosed]);
 
   const handleSendWhatsApp = () => {
     if (!selectedTours || selectedTours.length === 0) return;
@@ -20,13 +28,27 @@ export default function WhatsAppButton() {
     setIsOpen(false);
   };
 
+  const handleTogglePopup = () => {
+    if (!isOpen) {
+      setUserClosed(false); // Reset user closed state when manually opening
+    } else {
+      setUserClosed(true); // Set user closed state when manually closing
+    }
+    setIsOpen(!isOpen);
+  };
+
+  const handleClosePopup = () => {
+    setIsOpen(false);
+    setUserClosed(true);
+  };
+
   const tourCount = selectedTours?.length || 0;
 
   return (
     <>
       {/* Floating WhatsApp Button */}
       <motion.button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleTogglePopup}
         className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
@@ -71,7 +93,7 @@ export default function WhatsAppButton() {
                   )}
                 </div>
                 <button
-                  onClick={() => setIsOpen(false)}
+                  onClick={handleClosePopup}
                   className="text-white/80 hover:text-white transition-colors"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

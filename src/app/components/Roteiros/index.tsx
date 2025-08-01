@@ -26,6 +26,7 @@ export default function Roteiros() {
   const [visibleTours, setVisibleTours] = useState(3);
   const [roteiros, setRoteiros] = useState<Tour[]>(fallbackTours); // Start with fallback
   const [loading, setLoading] = useState(true);
+  const [expandedDescriptions, setExpandedDescriptions] = useState<Record<string, boolean>>({});
   const { selectedTourIds, toggleTour } = useTourContext();
 
   // Fetch tours from Notion API with fallback
@@ -85,8 +86,18 @@ export default function Roteiros() {
             <div className="h-12 bg-gray-200 rounded-lg relative overflow-hidden mb-4 max-w-md mx-auto">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
             </div>
-            <div className="h-6 bg-gray-200 rounded relative overflow-hidden max-w-2xl mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+          </div>
+
+
+          {/* Selection Instructions Skeleton */}
+          <div className="mb-8">
+            <div className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg max-w-fit mx-auto">
+              <div className="w-6 h-6 bg-gray-200 rounded relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+              </div>
+              <div className="h-5 bg-gray-200 rounded relative overflow-hidden w-64">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-shimmer"></div>
+              </div>
             </div>
           </div>
 
@@ -193,15 +204,27 @@ export default function Roteiros() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-center mb-12 lg:mb-16"
+          className="text-center mb-8 lg:mb-10"
         >
-          <h2 className="font-playfair font-bold text-3xl sm:text-4xl lg:text-5xl text-primary mb-4">
+          <h2 className="font-playfair font-bold text-3xl sm:text-4xl lg:text-5xl text-primary">
             Roteiros Personalizados
           </h2>
-          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-            Descubra Sergipe com roteiros exclusivos e acompanhamento especializado. 
-            Escolha seus destinos favoritos e envie para consultar disponibilidade.
-          </p>
+        </motion.div>
+
+                {/* Selection Instructions Mini-Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="mb-8"
+        >
+          <div className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-green-50 text-green-900 border border-green-100 rounded-lg shadow-sm max-w-fit mx-auto transition-all duration-300 hover:shadow-md">
+            <span className="text-base sm:text-lg animate-bounce">👇</span>
+            <strong className="font-medium text-sm sm:text-base">
+              Toque nos roteiros para selecioná-los
+              <span className="hidden sm:inline"> e depois envie pelo WhatsApp!</span>
+            </strong>
+          </div>
         </motion.div>
 
         {/* Category Filters */}
@@ -209,20 +232,21 @@ export default function Roteiros() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-3 mb-8 lg:mb-12"
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 lg:mb-12"
         >
           {categories.map((category) => (
             <button
               key={category.id}
               onClick={() => handleCategoryChange(category.id)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+              className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
                 selectedCategory === category.id
                   ? 'bg-primary text-white shadow-lg'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              <span className="mr-2">{category.icon}</span>
-              {category.label}
+              <span className="mr-1 sm:mr-2">{category.icon}</span>
+              <span className="hidden xs:inline">{category.label}</span>
+              <span className="xs:hidden">{category.label.split(' ')[0]}</span>
             </button>
           ))}
         </motion.div>
@@ -250,7 +274,7 @@ export default function Roteiros() {
         )}
 
         {/* Tours Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-12">
           {displayedRoteiros.map((roteiro: Tour, index: number) => (
             <motion.div
               key={roteiro.id}
@@ -259,15 +283,15 @@ export default function Roteiros() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
               onClick={() => toggleTour(roteiro)}
-              className={`bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer relative ${
+              className={`bg-white rounded-2xl shadow-lg transition-all duration-300 overflow-hidden cursor-pointer relative hover:shadow-2xl hover:bg-gray-50 ${
                 selectedTourIds.includes(roteiro.id)
-                  ? 'bg-primary/10 shadow-2xl shadow-primary/30 transform scale-[1.03] ring-1 ring-primary/30'
-                  : 'hover:shadow-xl'
+                  ? 'bg-primary/10 shadow-2xl shadow-primary/40 ring-1 ring-primary/30'
+                  : 'hover:scale-150'
               }`}
             >
               {/* Selection Indicator Bar */}
               {selectedTourIds.includes(roteiro.id) && (
-                <div className="absolute top-0 left-0 right-0 h-1 bg-primary z-10"></div>
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-primary z-10"></div>
               )}
 
               {/* Image */}
@@ -336,10 +360,10 @@ export default function Roteiros() {
                 </div>
 
                 {/* Selection Indicator */}
-                <div className={`absolute top-4 right-4 w-6 h-6 rounded-full border-2 transition-all duration-300 flex items-center justify-center ${
+                <div className={`absolute top-4 right-4 w-7 h-7 rounded-full border-3 transition-all duration-300 flex items-center justify-center shadow-lg ${
                   selectedTourIds.includes(roteiro.id)
-                    ? 'bg-primary border-primary'
-                    : 'bg-white/90 border-white'
+                    ? 'bg-primary border-primary scale-110'
+                    : 'bg-white/95 border-white/80 hover:border-primary/50'
                 }`}>
                   {selectedTourIds.includes(roteiro.id) && (
                     <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -350,26 +374,43 @@ export default function Roteiros() {
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <h3 className="font-playfair font-bold text-xl text-primary mb-3">
+              <div className="p-4 sm:p-6">
+                <h3 className="font-playfair font-bold text-lg sm:text-xl text-primary mb-3">
                   {roteiro.title}
                 </h3>
 
-                <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
-                  {roteiro.description}
-                </p>
+                <div className="mb-4">
+                  <p className={`text-gray-600 text-xs sm:text-sm leading-relaxed ${expandedDescriptions[roteiro.id] ? '' : 'line-clamp-2'}`}>
+                    {roteiro.description}
+                  </p>
+                  {roteiro.description.length > 80 && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setExpandedDescriptions(prev => ({
+                          ...prev,
+                          [roteiro.id]: !prev[roteiro.id]
+                        }));
+                      }}
+                      className="text-primary text-xs font-medium mt-1 hover:text-primary/80 transition-colors"
+                    >
+                      {expandedDescriptions[roteiro.id] ? 'Ver menos' : 'Ver mais'}
+                    </button>
+                  )}
+                </div>
 
                 {/* Duration */}
-                {roteiro.departureTime && roteiro.returnTime && <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {roteiro.departureTime && roteiro.returnTime && <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 mb-4">
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span>Saída: {roteiro.departureTime} | Retorno: {roteiro.returnTime}</span>
+                  <span className="hidden sm:inline">Saída: {roteiro.departureTime} | Retorno: {roteiro.returnTime}</span>
+                  <span className="sm:hidden">Saída: {roteiro.departureTime}</span>
                 </div>}
 
                 {/* Included Services */}
                 <div className="space-y-2">
-                  <h4 className="font-semibold text-sm text-primary">Incluído:</h4>
+                  <h4 className="font-semibold text-xs sm:text-sm text-primary">Incluído:</h4>
                   <ul className="text-xs text-gray-600 space-y-1">
                     {roteiro.included.slice(0, 3).map((item: string, idx: number) => (
                       <li key={idx} className="flex items-center gap-2">
@@ -399,11 +440,11 @@ export default function Roteiros() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <button
-              onClick={loadMore}
-              data-load-more
-              className="bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2 mx-auto"
-            >
+                          <button
+                onClick={loadMore}
+                data-load-more
+                className="bg-primary hover:bg-primary/90 text-white font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2 mx-auto text-sm sm:text-base"
+              >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
@@ -422,7 +463,7 @@ export default function Roteiros() {
           >
             <button
               onClick={hideTours}
-              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2 mx-auto"
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2 mx-auto text-sm sm:text-base"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
@@ -438,16 +479,16 @@ export default function Roteiros() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-16 text-center"
+          className="mt-16 text-center scroll-mt-96"
         >
-          <div className="bg-secondary/50 rounded-2xl p-8 max-w-4xl mx-auto">
-            <h3 className="font-playfair font-bold text-2xl text-primary mb-4 flex items-center justify-center gap-3">
+          <div className="bg-secondary/50 rounded-2xl p-4 sm:p-8 max-w-4xl mx-auto">
+            <h3 className="font-playfair font-bold text-xl sm:text-2xl text-primary mb-4 flex items-center justify-center gap-3">
               <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               Política de Cancelamento
             </h3>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
               Cancelamentos podem ser feitos até 24 horas antes do início do passeio. 
               Em caso de cancelamento em período inferior, será cobrada uma taxa de 50% do valor total. 
               Para cancelamentos no dia do passeio, será cobrado 100% do valor.

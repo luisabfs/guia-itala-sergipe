@@ -7,20 +7,20 @@ export default function SobreGuia() {
   return (
     <section id="sobre" className="py-4 lg:py-20 bg-secondary">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-stretch">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Image - Hidden on mobile, shown first on desktop */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="relative hidden lg:block h-full"
+            className="relative hidden lg:block h-[600px]"
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl h-full">
               <img
                 src="/images/profile_meg.jpeg"
                 alt="Ítala Aben-Athar - Guia turística especialista em Sergipe"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
@@ -134,16 +134,19 @@ export default function SobreGuia() {
             </div>
 
             <div className="pt-6">
-              <Link
-                href="#contato"
+              <button
+                onClick={() => {
+                  const message = encodeURIComponent('Olá! Gostaria de falar com a especialista sobre roteiros em Sergipe. Poderia me ajudar?');
+                  window.open(`https://wa.me/557996411312?text=${message}`, '_blank');
+                }}
                 className="inline-flex items-center gap-2 bg-primary hover:bg-primary-light text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
-                aria-label="Entrar em contato com a guia"
+                aria-label="Entrar em contato com a guia via WhatsApp"
               >
                 <span>Falar com a especialista</span>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
-              </Link>
+              </button>
             </div>
           </motion.div>
 
@@ -153,13 +156,13 @@ export default function SobreGuia() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="relative lg:hidden"
+            className="relative lg:hidden h-[400px]"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl h-full">
               <img
                 src="/images/profile_meg.jpeg"
                 alt="Ítala Aben-Athar - Guia turística especialista em Sergipe"
-                className="w-full h-[400px] object-cover"
+                className="w-full h-full object-cover object-center"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>

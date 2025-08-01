@@ -20,43 +20,9 @@ export default function Hero() {
       {/* Mobile-specific background gradient */}
       <div className="absolute inset-0 lg:hidden bg-gradient-to-b from-gold/5 via-transparent to-accent/5"></div>
 
-      {/* Floating decorative icon for mobile */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5 }}
-        className="absolute top-24 left-6 lg:hidden"
-      >
-        <motion.div
-          animate={{ rotate: [0, 5, -5, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="w-12 h-12 text-primary/30"
-        >
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-        </motion.div>
-      </motion.div>
 
-      {/* Second floating decorative icon for mobile */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.8 }}
-        className="absolute top-64 right-6 lg:hidden"
-      >
-        <motion.div
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="w-10 h-10 text-accent/40"
-        >
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" />
-          </svg>
-        </motion.div>
-      </motion.div>
 
-      <div className="relative z-10 w-full py-12 lg:py-24 flex flex-col items-center min-h-[100vh]">
+      <div className="relative z-10 w-full py-12 lg:py-24 flex flex-col items-center justify-center min-h-[100vh]">
         {/* Main Content Container */}
         <div className="w-full px-6 lg:px-16">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-0 items-center max-w-7xl mx-auto">
@@ -168,14 +134,33 @@ export default function Hero() {
             >
               {/* Background image */}
               <div 
-                className="w-full h-full bg-cover bg-no-repeat rounded-2xl lg:rounded-none lg:rounded-bl-3xl shadow-lg"
+                className="w-full h-full bg-cover bg-center bg-no-repeat rounded-2xl lg:rounded-none lg:rounded-bl-3xl shadow-lg"
                 style={{
                   backgroundImage: 'url(/aracaju-largo-da-gente-sergipana.jpg)',
-                  backgroundPosition: '20%'
+                  backgroundPosition: 'center'
                 }}
               >
                 {/* Overlay for better contrast */}
                 <div className="absolute inset-0 bg-white/10 rounded-2xl lg:rounded-none lg:rounded-bl-3xl"></div>
+              </div>
+            </motion.div>
+
+            {/* Tablet Image - Better aspect ratio for medium screens */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative hidden md:block lg:hidden order-1 md:order-2 mb-8"
+            >
+              <div 
+                className="w-full h-80 bg-cover bg-center bg-no-repeat rounded-2xl shadow-lg"
+                style={{
+                  backgroundImage: 'url(/aracaju-largo-da-gente-sergipana.jpg)',
+                  backgroundPosition: 'center'
+                }}
+              >
+                {/* Overlay for better contrast */}
+                <div className="absolute inset-0 bg-white/10 rounded-2xl"></div>
               </div>
             </motion.div>
           </div>
