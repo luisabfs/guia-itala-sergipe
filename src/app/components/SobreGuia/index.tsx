@@ -90,7 +90,7 @@ export default function SobreGuia() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-primary mb-1">Formação Acadêmica</h4>
-                    <p className="text-sm text-gray-600">Turismóloga formada com especialização em gestão turística</p>
+                    <p className="text-sm text-gray-600">Turismóloga & Mestra em Turismo</p>
                   </div>
                 </div>
 

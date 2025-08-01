@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { useTourContext } from '../../contexts/TourContext';
 
 export default function WhatsAppButton() {
   const [isOpen, setIsOpen] = useState(false);
   const [userClosed, setUserClosed] = useState(false);
+  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
   const { selectedTours, removeTour } = useTourContext();
 
   // Auto-open popup when first tour is selected (but only if user hasn't manually closed it)
@@ -40,6 +42,10 @@ export default function WhatsAppButton() {
   const handleClosePopup = () => {
     setIsOpen(false);
     setUserClosed(true);
+  };
+
+  const handleImageLoad = (tourId: string) => {
+    setLoadedImages(prev => ({ ...prev, [tourId]: true }));
   };
 
   const tourCount = selectedTours?.length || 0;
@@ -123,11 +129,25 @@ export default function WhatsAppButton() {
                       exit={{ opacity: 0, x: 20 }}
                       className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
                     >
-                      <img
-                        src={tour.imageUrl}
-                        alt={tour.title}
-                        className="w-12 h-12 rounded-lg object-cover flex-shrink-0"
-                      />
+                      <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+                        {/* Skeleton */}
+                        {!loadedImages[tour.id] && (
+                          <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-lg" />
+                        )}
+                        
+                        {/* Image */}
+                        <Image
+                          src={tour.imageUrl}
+                          alt={tour.title}
+                          fill
+                          sizes="48px"
+                          className={`object-cover transition-opacity duration-300 ${
+                            loadedImages[tour.id] ? 'opacity-100' : 'opacity-0'
+                          }`}
+                          loading="lazy"
+                          onLoad={() => handleImageLoad(tour.id)}
+                        />
+                      </div>
                       <div className="flex-1 min-w-0">
                         <h4 className="font-medium text-sm text-gray-900 truncate">
                           {tour.title}

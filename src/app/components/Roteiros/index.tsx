@@ -218,11 +218,10 @@ export default function Roteiros() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="mb-8"
         >
-          <div className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-green-50 text-green-900 border border-green-100 rounded-lg shadow-sm max-w-fit mx-auto transition-all duration-300 hover:shadow-md">
+          <div className="flex items-center text-center gap-2 px-3 sm:px-4 py-2 bg-green-50 text-green-900 border border-green-100 rounded-lg shadow-sm max-w-fit mx-auto transition-all duration-300 hover:shadow-md">
             <span className="text-base sm:text-lg animate-bounce">👇</span>
             <strong className="font-medium text-sm sm:text-base">
-              Toque nos roteiros para selecioná-los
-              <span className="hidden sm:inline"> e depois envie pelo WhatsApp!</span>
+              Toque nos roteiros para selecioná-los e depois envie pelo WhatsApp!
             </strong>
           </div>
         </motion.div>
@@ -267,9 +266,6 @@ export default function Roteiros() {
                 {hiddenSelectionsCount} roteiro{hiddenSelectionsCount > 1 ? 's' : ''} selecionado{hiddenSelectionsCount > 1 ? 's' : ''} {hiddenSelectionsCount > 1 ? 'estão' : 'está'} oculto{hiddenSelectionsCount > 1 ? 's' : ''}
               </span>
             </div>
-            <p className="text-sm text-gray-600 mt-1">
-              Clique em "Mostrar todos os passeios" para ver suas seleções
-            </p>
           </motion.div>
         )}
 
