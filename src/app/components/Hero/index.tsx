@@ -2,16 +2,21 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[100vh] bg-gradient-to-br from-secondary via-secondary-light to-white">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 right-20 w-32 h-32 bg-primary rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-24 h-24 bg-accent rounded-full blur-2xl"></div>
-        <div className="absolute top-1/2 left-1/3 w-16 h-16 bg-gold rounded-full blur-xl"></div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: 'url(/images/mangue-seco.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent"></div>
       </div>
 
       {/* Radial gradient overlay for depth */}
@@ -165,22 +170,7 @@ export default function Hero() {
             </motion.div>
           </div>
         </div>
-      </div>
-
-      {/* Curved bottom edge for organic transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 lg:h-24 overflow-hidden">
-        <svg
-          className="absolute bottom-0 w-full h-full"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,120 C200,60 400,20 600,40 C800,60 1000,80 1200,120 L1200,120 L0,120 Z"
-            fill="#F8F5F2"
-            className="drop-shadow-sm"
-          />
-        </svg>
-      </div>
+      </motion.div>
     </section>
   );
 } 

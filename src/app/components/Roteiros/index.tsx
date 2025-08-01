@@ -15,7 +15,7 @@ interface Tour extends NotionTour {
 const fallbackTours: Tour[] = toursData as Tour[];
 
 const categories = [
-  { id: 'todos', label: 'Todos', icon: '🌟' },
+  { id: 'todos', label: 'Todos', icon: '🌍' },
   { id: 'praias', label: 'Praias', icon: '🏖️' },
   { id: 'cultural', label: 'Cultural/Histórico', icon: '🏛️' },
   { id: 'ecologico', label: 'Ecológico', icon: '🌿' }
@@ -58,11 +58,6 @@ export default function Roteiros() {
 
     fetchTours();
   }, []);
-
-  // Filter tours based on selected category
-  const filteredRoteiros = selectedCategory === 'todos' 
-    ? roteiros 
-    : roteiros.filter((roteiro: Tour) => roteiro.category === selectedCategory);
 
   // Show only the first N tours
   const displayedRoteiros = filteredRoteiros.slice(0, visibleTours);
@@ -170,35 +165,25 @@ export default function Roteiros() {
     }
   };
 
-  const hideTours = () => {
-    setVisibleTours(3);
-    // Scroll to maintain context after hiding tours - scroll to last visible tour
-    setTimeout(() => {
-      const lastTour = document.querySelector('[data-tour-index="2"]');
-      if (lastTour) {
-        const isMobile = window.innerWidth < 768;
-        lastTour.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: isMobile ? 'start' : 'center',
-          inline: 'nearest'
-        });
-      }
-    }, 150);
-  };
+  const sendToWhatsApp = () => {
+    if (selectedRoteiros.length === 0) {
+      alert('Selecione pelo menos um roteiro para enviar.');
+      return;
+    }
 
-  const resetVisibleTours = () => {
-    setVisibleTours(3);
-  };
+    const itineraryList = selectedRoteiros.map(id => {
+      const itinerary = roteiros.find(item => item.id === id);
+      return `• ${itinerary?.title} (${itinerary?.duration})`;
+    }).join('\n');
 
-  // Reset visible tours when category changes
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
-    resetVisibleTours();
+    const message = `Olá! Gostaria de saber mais sobre os seguintes roteiros:\n\n${itineraryList}\n\nPoderia me passar mais informações?`;
+    const whatsappUrl = `https://wa.me/557996411312?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
-    <section id="roteiros" className="py-16 lg:py-24 bg-white">
-      <div className="container mx-auto px-4">
+    <section id="roteiros" className="py-20 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -227,7 +212,7 @@ export default function Roteiros() {
           </div>
         </motion.div>
 
-        {/* Category Filters */}
+        {/* Filters */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -241,7 +226,7 @@ export default function Roteiros() {
               className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
                 selectedCategory === category.id
                   ? 'bg-primary text-white shadow-lg'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-secondary text-primary hover:bg-primary/10'
               }`}
             >
               <span className="mr-1 sm:mr-2">{category.icon}</span>
@@ -432,15 +417,15 @@ export default function Roteiros() {
           ))}
         </div>
 
-        {/* Load More Button */}
-        {visibleTours < filteredRoteiros.length && (
+        {/* Selection Actions */}
+        {selectedRoteiros.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="text-center"
           >
-                          <button
+             <button
                 onClick={loadMore}
                 data-load-more
                 className="bg-primary hover:bg-primary/90 text-white font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center gap-2 mx-auto text-sm sm:text-base"
@@ -473,7 +458,7 @@ export default function Roteiros() {
           </motion.div>
         )}
 
-        {/* Cancellation Policy */}
+        {/* Policy Notice */}
         <motion.div
           id="politica-cancelamento"
           initial={{ opacity: 0, y: 20 }}

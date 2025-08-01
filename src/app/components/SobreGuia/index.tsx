@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function SobreGuia() {
   return (
-    <section id="sobre" className="py-4 lg:py-20 bg-secondary">
+    <section id="sobre" className="py-20 bg-secondary">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Image - Hidden on mobile, shown first on desktop */}
@@ -56,32 +56,33 @@ export default function SobreGuia() {
 
           {/* Text Content */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="space-y-6 text-center lg:text-left"
+            className="space-y-6"
           >
             <div className="space-y-4">
-              <h2 className="font-playfair font-bold text-4xl text-primary leading-tight">
-                Conheça sua <span className="text-accent">Guia</span>
+              <h2 className="font-playfair font-bold text-4xl sm:text-5xl text-primary leading-tight">
+                Conheça sua{' '}
+                <span className="text-accent">Especialista</span>
               </h2>
-
-              <div className="w-20 h-1 bg-gold rounded-full mx-auto lg:mx-0"></div>
+              
+              <div className="w-20 h-1 bg-gold rounded-full"></div>
             </div>
 
             <div className="space-y-6 text-gray-700">
               <p className="text-lg leading-relaxed">
-                Olá! Sou <strong className="text-primary">Ítala Aben-Athar</strong>,
+                Olá! Sou <strong className="text-primary">Ítala Aben-Athar</strong>, 
                 Turismóloga, Agente de Viagens e Guia de Turismo em Aracaju, Sergipe.
               </p>
-
+              
               <p className="text-lg leading-relaxed">
-                Com <strong className="text-accent">mais de 30 anos de experiência</strong> no setor turístico,
+                Com <strong className="text-accent">mais de 30 anos de experiência</strong> no setor turístico, 
                 tenho um profundo conhecimento da história, cultura e atrações locais de Sergipe.
               </p>
 
-              <div className="grid sm:grid-cols-2 gap-6 pt-4 text-left">
+              <div className="grid sm:grid-cols-2 gap-6 pt-4">
                 <div className="flex items-start gap-3">
                   <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                     <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -150,10 +151,10 @@ export default function SobreGuia() {
             </div>
           </motion.div>
 
-          {/* Image for mobile - shown after text */}
+          {/* Image */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             className="relative lg:hidden h-[400px]"
@@ -166,31 +167,21 @@ export default function SobreGuia() {
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-
+              
               {/* Floating card */}
-              <a
-                href="https://www.instagram.com/guia.itala.sergipe/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-accent hover:text-accent-light transition-colors duration-300 text-md font-medium"
-                aria-label="Seguir no Instagram"
-              >
-                <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 lg:w-16 lg:h-16 bg-primary rounded-full flex items-center justify-center">
-                      <svg className="w-6 h-6 lg:w-8 lg:h-8 text-white" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                      </svg>
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex flex-col gap-1 mb-1">
-                        <h4 className="font-semibold text-primary">Confira os passeios e novidades:</h4>
-                        <span className="text-sm">@guia.itala.sergipe</span>
-                      </div>
-                    </div>
+              <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-primary">Experiência Garantida</h4>
+                    <p className="text-sm text-gray-600">30+ anos de atuação no turismo</p>
                   </div>
                 </div>
-              </a>
+              </div>
             </div>
           </motion.div>
         </div>
