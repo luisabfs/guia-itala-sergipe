@@ -6,7 +6,6 @@
     "imageUrl": "/images/city-tour.webp",
     "departureTime": "08:00h",
     "returnTime": "16:00h",
-    "category": "cultural",
     "included": [
       "Guia de turismo"
     ],
@@ -24,7 +23,6 @@
     "imageUrl": "/images/lagoa-tambaquis.png",
     "departureTime": "07:30h",
     "returnTime": "16:00h",
-    "category": "ecologico",
     "included": [
       "Transporte",
       "Guia de turismo"
@@ -42,7 +40,6 @@
     "imageUrl": "/images/croa-do-gore.jpg",
     "departureTime": "08:00h",
     "returnTime": "Conforme a tábua de marés do dia",
-    "category": "praias",
     "included": [
       "Guia regional"
     ],    
@@ -60,7 +57,6 @@
     "imageUrl": "/images/xingo.jpg",
     "departureTime": "06:30h",
     "returnTime": "16:00h",
-    "category": "cultural",
     "included": [
       "Guia regional e local"
     ],
@@ -76,7 +72,6 @@
     "description": "Passe um dia completo de lazer e muito contato com a natureza, em Laranjeiras, há poucos minutos de Aracaju. Todos podem curtir um dia perfeito na Reserva Boa Luz com direito a Piscinas, Lagos, Mata nativa e bosques para caminhada, Trilhas para ciclismo, Quadras de areia para vôlei e beach tênis e desfrutar de uma gastronomia maravilhosa.",
     "departureTime": "08:30h",
     "returnTime": "17:00h",
-    "category": "ecologico",
     "included": [
       "Guia regional"
     ],
@@ -93,7 +88,6 @@
     "description": "Embarque em um passeio encantador pelo majestoso Rio São Francisco, conhecido como Velho Chico, a bordo de embarcações regionais seguras e confortáveis. Navegue pelas águas que marcam a divisa entre Sergipe e Alagoas e testemunhe o impressionante encontro do rio com o mar, em um cenário de beleza única e inesquecível.",    
     "departureTime": "07:00h",
     "returnTime": "16:00h",
-    "category": "praias",
     "included": [
       "Guia regional"
     ],
@@ -111,7 +105,6 @@
     "imageUrl": "/images/morro-da-lucrecia.jpeg",
     "departureTime": "07:30h",
     "returnTime": "16:00h",
-    "category": "ecologico",
     "included": [
       "Roteiro ecológico",
       "Guia local e regional",
@@ -129,7 +122,6 @@
     "imageUrl": "/images/lencois-sergipanos.jpeg",
     "departureTime": "07:30h",
     "returnTime": "16:00h",
-    "category": "ecologico",
     "included": [
       "Almoço",
       "Guias local e regional",
@@ -146,7 +138,6 @@
     "description": "Explore o encantador povoado de Mangue Seco, na Bahia, em uma jornada repleta de paisagens paradisíacas. Nossa aventura começa com uma travessia de barco de 20 minutos pelos rios Piauí e Real, seguida de um emocionante passeio de buggy pelas imponentes dunas até a praia – um trajeto inesquecível que só pode ser feito sobre rodas. Cenário da icônica novela Tieta do Agreste, Mangue Seco oferece um refúgio de beleza natural e tranquilidade à beira-mar.",
     "departureTime": "07:30h",
     "returnTime": "16:00h",
-    "category": "praias",
     "included": [
       "Guia regional"
     ],
@@ -165,7 +156,6 @@
     "imageUrl": "/images/rota-sergipanidade.jpeg",
     "departureTime": "08:00h",
     "returnTime": "13:00h",
-    "category": "cultural",
     "included": [
       "Guia regional",
       "Ingressos nos museus"
@@ -182,7 +172,6 @@
     "imageUrl": "/images/rota-saberes-e-fazeres.jpg",
     "departureTime": "08:00h",
     "returnTime": "13:00h",
-    "category": "cultural",
     "included": [
       "Guia regional",
       "Ingressos nos museus"
